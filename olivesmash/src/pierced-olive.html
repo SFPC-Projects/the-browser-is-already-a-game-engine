@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            position:fixed;
+            perspective:800px;
+            width:50%;
+            transform-style:preserve-3d;
+
+        }
+
+        img {
+            position:fixed;
+            transform :
+                    rotateZ(90deg)
+                    translate3d(-130px,80px,-200px)
+                    scale3d(1.5,0.8,1);
+
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title>piercing</title>
+</head>
+<body>
+
+    <img src="piercedolive.png"
+    width = '300' height = '400'/>
+
+<script>
+    const reset = function() {
+        window.parent.postMessage({type: "reset"});
+    }
+    window.setInterval(reset, 500);
+
+</script>
+
+
+</body>
+</html>

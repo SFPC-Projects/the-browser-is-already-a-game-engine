@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<title>Ediz Apartment Building</title>
+
+<style>
+
+
+/* ===================================== */
+/* SAYFA */
+/* ===================================== */
+
+
+body {
+
+    margin: 0;
+
+    background: white;
+
+    font-family: monospace;
+
+    overflow-x: hidden;
+
+}
+
+
+
+/* ===================================== */
+/* ARKADAKİ APARTMAN */
+/* ===================================== */
+
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url("../apartman.png");
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    background-size: 85%;
+
+    opacity: 0.20;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+}
+
+
+
+/* ===================================== */
+/* ŞİİR */
+/* ===================================== */
+
+
+.siir {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 600px;
+
+    max-width: 80%;
+
+    margin: auto;
+
+    padding-top: 120px;
+
+    padding-bottom: 500px;
+
+    text-align: center;
+
+}
+
+
+
+/* ===================================== */
+/* NORMAL YAZI */
+/* ===================================== */
+
+
+pre {
+
+    font-family: monospace;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+
+    margin-top: 80px;
+
+    margin-bottom: 80px;
+
+}
+
+
+
+/* ===================================== */
+/* DETAILS */
+/* ===================================== */
+
+
+summary {
+
+    cursor: pointer;
+
+    list-style: none;
+
+    font-family: monospace;
+
+}
+
+
+summary:hover {
+
+    color: red;
+
+}
+
+
+
+/* ===================================== */
+/* HYPERLINK */
+/* ===================================== */
+
+
+a {
+
+    color: blue;
+
+}
+
+
+a:visited {
+
+    color: purple;
+
+}
+
+
+
+/* ===================================== */
+/* SENİN BIGGER VE BOLD TAGLERİN */
+/* ===================================== */
+
+
+bigger {
+
+    display: inline-block;
+
+    font-size: 2.5em;
+
+}
+
+
+bold {
+
+    font-weight: bold;
+
+    font-size: 25px;
+
+}
+
+
+
+/* ===================================== */
+/* HAFİF YÜRÜYEN YAZI */
+/* ===================================== */
+
+
+.yuru {
+
+    animation: yuru 4s steps(8) infinite alternate;
+
+}
+
+
+@keyframes yuru {
+
+    from {
+
+        transform: translateX(-20px);
+
+    }
+
+    to {
+
+        transform: translateX(70px);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* YOĞUN */
+/* ===================================== */
+
+
+.yogun {
+
+    animation: yogun 1.4s steps(6) infinite alternate;
+
+}
+
+
+@keyframes yogun {
+
+    from {
+
+        transform: scale(1);
+
+    }
+
+    to {
+
+        transform: scale(1.65);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* HİSSEDİYORUM */
+/* ===================================== */
+
+
+.kaybol {
+
+    animation: kaybol 3s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes kaybol {
+
+    from {
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        opacity: 0.08;
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* SENİ DÜŞÜNÜYORUM */
+/* ===================================== */
+
+
+.dusunce {
+
+    animation: dusunce 5s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes dusunce {
+
+    from {
+
+        transform: translateX(-30px);
+
+    }
+
+    to {
+
+        transform: translateX(50px);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* NEREDEYİM */
+/* ===================================== */
+
+
+.kayip {
+
+    animation: kayip 0.9s steps(5) infinite alternate;
+
+}
+
+
+@keyframes kayip {
+
+    0% {
+
+        transform: translateX(-15px);
+
+    }
+
+    30% {
+
+        transform: translateX(30px);
+
+    }
+
+    70% {
+
+        transform: translateX(-35px);
+
+    }
+
+    100% {
+
+        transform: translateX(10px);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* ADIMLAR */
+/* ===================================== */
+
+
+.adim {
+
+    font-size: 28px;
+
+    animation: adimYuru 3s steps(7) infinite alternate;
+
+}
+
+
+@keyframes adimYuru {
+
+    from {
+
+        transform: translateX(-30px);
+
+    }
+
+    to {
+
+        transform: translateX(50px);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* ATARİ SKORU GİBİ SAYILAR */
+/* ===================================== */
+
+
+.skor {
+
+    font-size: 35px;
+
+    animation: skor 0.35s steps(2) infinite;
+
+}
+
+
+@keyframes skor {
+
+    0% {
+
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        opacity: 0.35;
+        transform: translateY(-4px);
+
+    }
+
+    100% {
+
+        opacity: 1;
+        transform: translateY(2px);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* 10 ADIM */
+/* ===================================== */
+
+
+.buyuk {
+
+    font-size: 70px;
+
+    animation:
+
+        onAdim 0.7s steps(2) infinite,
+
+        onAdimBuyu 1.6s steps(5) infinite alternate;
+
+}
+
+
+@keyframes onAdim {
+
+    0% {
+
+        opacity: 1;
+
+    }
+
+    50% {
+
+        opacity: 0.15;
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+    }
+
+}
+
+
+@keyframes onAdimBuyu {
+
+    from {
+
+        transform: scale(1);
+
+    }
+
+    to {
+
+        transform: scale(1.2);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* OFFFFFFFF */
+/* ===================================== */
+
+
+.off {
+
+    font-size: 35px;
+
+    white-space: pre-wrap;
+
+    animation: offKay 3s steps(12) infinite;
+
+}
+
+
+@keyframes offKay {
+
+    0% {
+
+        transform: translateX(-45vw);
+        opacity: 0;
+
+    }
+
+    10% {
+
+        opacity: 1;
+
+    }
+
+    80% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform: translateX(45vw);
+        opacity: 0;
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* YO OOOOO */
+/* ===================================== */
+
+
+.yo {
+
+    font-size: 35px;
+
+    animation:
+
+        yoTitre 0.15s steps(2) infinite,
+
+        yoYanipSon 0.7s steps(2) infinite;
+
+}
+
+
+@keyframes yoTitre {
+
+    0% {
+
+        transform: translate(0,0);
+
+    }
+
+    25% {
+
+        transform: translate(5px,-3px);
+
+    }
+
+    50% {
+
+        transform: translate(-5px,2px);
+
+    }
+
+    75% {
+
+        transform: translate(3px,4px);
+
+    }
+
+    100% {
+
+        transform: translate(0,0);
+
+    }
+
+}
+
+
+@keyframes yoYanipSon {
+
+    0% {
+
+        opacity: 1;
+
+    }
+
+    50% {
+
+        opacity: 0.35;
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* YAVAŞ SALINAN YAZI */
+/* ===================================== */
+
+
+.salinti {
+
+    animation: salinti 6s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes salinti {
+
+    from {
+
+        transform: translateX(-15px);
+
+    }
+
+    to {
+
+        transform: translateX(20px);
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* SONLARA DOĞRU YORGUN */
+/* ===================================== */
+
+
+.yorgun {
+
+    animation: yorgun 4s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes yorgun {
+
+    from {
+
+        transform: translateY(0);
+        opacity: 1;
+
+    }
+
+    to {
+
+        transform: translateY(20px);
+        opacity: 0.55;
+
+    }
+
+}
+
+
+
+/* ===================================== */
+/* SON CÜMLE SABİT */
+/* ===================================== */
+
+
+.son {
+
+    margin-top: 180px;
+
+    margin-bottom: 300px;
+
+}
+
+
+
+</style>
+
+
+<style id="route-language-styles">
+/* Minimal persistent language selector, isolated from original artwork */
+#route-lang-selector {
+ position:fixed!important; top:12px!important; right:12px!important;
+ left:auto!important; bottom:auto!important; z-index:2147483647!important;
+ display:flex!important; align-items:center!important; gap:0!important;
+ box-sizing:border-box!important; padding:4px 6px!important; margin:0!important;
+ background:rgba(255,255,255,.94)!important; border:1px solid #222!important;
+ border-radius:0!important; color:#111!important; box-shadow:none!important;
+ opacity:.85!important; font:12px/1.3 "Courier New",monospace!important;
+ letter-spacing:0!important; text-transform:none!important; width:auto!important; height:auto!important;
+}
+#route-lang-selector:hover, #route-lang-selector:focus-within{opacity:1!important}
+#route-lang-selector a {font:inherit!important; color:#111!important;
+ padding:3px 6px!important; margin:0!important; text-decoration:none!important;
+ display:inline-block!important; text-shadow:none!important; background:transparent!important;
+ border:0!important; width:auto!important; height:auto!important; opacity:1!important;
+}
+#route-lang-selector a[aria-current="page"] {background:#111!important; color:#fff!important; font-weight:bold!important}
+#route-lang-selector span {color:#777!important; font:inherit!important}
+</style>
+</head>
+
+
+
+<body>
+
+
+<div class="siir">
+
+
+
+<pre>
+
+*I am not waiting for anyone outside the Ediz apartment building*
+
+</pre>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Why do a person’s feet grow so terribly tired?
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+I
+
+my feet
+
+from a street vendor who has closed up shop, a <a href="../simit.jpg">simit seller’s</a>
+likeness
+
+<bigger>1</bigger>
+
+portion or piece is what I ask for.
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="yuru">
+
+<bold>WALKING ON THE MAIN ROAD IS EXHAUSTING</bold>
+
+
+:@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+I see interconnected <a href="../baglı.jpg">apartment buildings</a> 
+
+I walk on stretches of asphalt joined together
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+I do not believe any being
+
+<a href="../marx.gif">should be for rent or sale</a>,
+
+</pre>
+
+</details>
+
+
+
+<!-- ADIMLAR -->
+
+
+<details>
+
+<summary>1</summary>
+
+<pre class="adim">
+
+1 step
+
+                                    -----------11111111111111111111111111
+
+
+        2 steps
+
+             *****22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+
+
+                3 or 5 steps
+
+
+                3 3 3 3 3 3 3 3 3 3
+
+                                                               5
+
+                                                                3
+
+                                                                 5
+
+                                                                  5
+
+                                                                   3
+
+                                                                    3
+
+                                                                     5
+
+                                                                       3
+
+                                                                         5
+
+
+                        7 steps
+
+                              7777777777777777 7777777777777777777 777777777777777
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Today I see another branch of the wine shop we always go to 
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="yuru">
+
+Just because I turned left where I never usually turn
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+And a little
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="yogun">
+
+<bigger>overwhelmed</bigger>
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="kaybol">
+
+<small>is how I feel</small>
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="salinti">
+
+<small>
+
+I enter a place of tiles, foil, and ruins, and think of you
+
+A kid gets out of a taxi with a suitcase and pulls their bag out
+and runs after it,
+
+where have they come from, or what colony are they off to save?
+
+</small>
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="dusunce">
+
+<small>
+
+Hmmm
+
+
+I                                       am still
+
+t h i n k i n g of you
+
+
+1 step
+
+             2 steps
+
+               3        veya  5 adım
+
+7
+
+
+
+
+
+steps have passed
+
+</small>
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="kayip">
+
+and I do not know where I am
+
+</pre>
+
+</details>
+
+
+
+<!-- KOCAMAN 10 ADIM -->
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="buyuk">
+
+10 STEPS
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+have passed
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="kayip">
+
+I figure out where I am
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+I pass the shop where I first bought eye-shaped candy
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Actually
+
+how many years has it been?
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>3 ></summary>
+
+<pre class="skor">
+
+3
+
+
+        4
+
+
+                    7?
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+I see a café made for children,
+
+the belonging of little people who cannot drink coffee in a place where people do
+
+and I have to think about the word belonging, both directly and indirectly,
+
+</pre>
+
+</details>
+
+
+
+<!-- OFFFFFFFF -->
+
+
+<details>
+
+<summary>off ></summary>
+
+<pre class="off">
+
+Offfffffff f f f f f.
+
+       F f f f f f.
+
+              F f f f f f f f.
+
+                        F f
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+And in that moment I am furious that I could not be a child with you
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Am I a serious person today or what??
+
+</pre>
+
+</details>
+
+
+
+<!-- YO -->
+
+
+<details>
+
+<summary>yo ></summary>
+
+<pre class="yo">
+
+Yo
+
+ oo,Oooo
+
+Oooooooooo
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="yuru">
+
+I shake off the nostalgia the Bomonti liquor shop left on me
+
+
+3 forward
+
+
+4 back
+
+
+by walking
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Oh, master Salih is here!
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Where have you been, master?
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="salinti">
+
+And I was going to paint between my own words
+
+as best I could,
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+After a long, exhausting day
+
+<span class="skor">2</span>
+
+coats of paint were what I would put on
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+<span class="skor">1+0</span>
+
+I was going to prepare the house you painted for us
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre>
+
+Anyway,
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="yorgun">
+
+The master is tired
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="yorgun">
+
+My feet are worn out too,
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="salinti">
+
+At the cigarette stop, a bus swings its leg as it waits
+
+</pre>
+
+</details>
+
+
+
+<details>
+
+<summary>></summary>
+
+<pre class="son">
+
+I think I need to go <a href="steve.html"> home </a>  now.
+
+</pre>
+
+</details>
+
+
+
+</div>
+
+
+
+<nav id="route-lang-selector" aria-label="Language / Dil"><a href="../ediz.html" lang="tr">TR</a><span aria-hidden="true">/</span><a href="ediz.html" lang="en" aria-current="page">EN</a></nav>
+<script>
+(function(){
+  var selector=document.getElementById('route-lang-selector');
+  if(!selector) return;
+  var key='fifteen-day-route-switch';
+  var language=document.documentElement.lang||'tr';
+  var page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+  var specialMap=document.querySelectorAll('.dugum');
+  function snapshot(){
+    var details=[].map.call(document.querySelectorAll('details'),function(node){return node.open?1:0;});
+    var state={page:page, from:language, details:details, x:window.scrollX, y:window.scrollY, hash:location.hash};
+    if(specialMap.length){
+      state.active=[].findIndex.call(specialMap,function(n){return n.classList.contains('aktif')});
+      state.stage=!!(document.getElementById('sahne') && document.getElementById('sahne').style.display==='block');
+    }
+    try{sessionStorage.setItem(key,JSON.stringify(state));}catch(e){}
+  }
+  [].forEach.call(selector.querySelectorAll('a'),function(a){
+    a.addEventListener('click',function(){
+      snapshot();
+      if(location.hash && a.getAttribute('href').indexOf('#')===-1) a.href+=location.hash;
+    });
+  });
+  try{
+    var stored=JSON.parse(sessionStorage.getItem(key)||'null');
+    if(!stored || stored.page!==page || stored.from===language)return;
+    sessionStorage.removeItem(key);
+    [].forEach.call(document.querySelectorAll('details'),function(n,i){n.open=!!stored.details[i]});
+    if(specialMap.length && typeof window.sonrakiDugum==='function'){
+      var active=Math.max(0,Math.min(specialMap.length-1,stored.active||0));
+      for(var j=0;j<active;j++)window.sonrakiDugum();
+      if(stored.stage && typeof window.temsilBaslat==='function')window.temsilBaslat();
+    }
+    window.addEventListener('load',function(){
+      setTimeout(function(){window.scrollTo({left:stored.x||0,top:stored.y||0,behavior:'instant'});},40);
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+
+</html>

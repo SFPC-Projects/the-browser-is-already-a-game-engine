@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            overflow: hidden;
+            perspective:370px
+        }
+        .aisle-mask {
+            image-rendering: pixelated;
+            width: 50%;
+            left: 0px;
+            bottom: 0;
+            top: 0;
+            right:0;
+
+            position: fixed;
+
+            transform-style:preserve-3d;
+            transform:
+                    translate3d(250px,100px,-1000px)
+                    scale3d(3.1,4,1)
+        }
+
+        #items-container {
+            position:fixed;
+            transform-style:preserve-3d;
+
+            transform:
+            scale3d(0.5,0.5,1)
+            translate3d(300px,1000px,-900px);
+
+        }
+
+        #olivejar {
+            transform:
+            translate3d(0,700px,0)
+        }
+
+
+
+    </style>
+    <meta charset="UTF-8">
+    <title>aisles</title>
+</head>
+<body>
+
+<div class="aisle-mask">
+    <img src="aisles_mask.png" >
+
+</div>
+
+<div id = "items-container">
+
+    <img src="./tools/OIP.png" id="olivejar" data-cursor="./tools/OIP-cursor.png"/>
+    <img src="./tools/toothpickjar.png" id="toothpickjar" data-cursor="./tools/toothpickjar-cursor.png"/>
+
+</div>
+
+<script type = "module">
+    import { Mover } from "../../olive-events.js";
+    let olivejar = new Mover("#olivejar")
+    let toothpickjar = new Mover("#toothpickjar")
+
+    function random(number) {
+        return Math.floor(Math.random() * number);
+    }
+
+
+    function animatorRight(mover) {
+        let start = mover.position;
+        let rightKF = new KeyframeEffect(
+            mover.element,
+            [
+                { transform: `translate3d(${start.x}px,${start.y}px,${start.z}px)
+                rotateY(4deg)` },
+                { transform: "translate3d(3600px,-500px,2px) " +
+                        "rotateY(-4deg) rotateX(8deg)" }
+
+            ],
+            {
+                duration: 18000,
+                direction: "alternate",
+                easing: "ease-in-out",
+                iterations: 'Infinity'
+
+            },
+        );
+        const rightAnim = new Animation(rightKF, document.timeline);
+
+        rightAnim.play()
+
+    }
+
+    function animatorLeft(mover) {
+        let start = mover.position;
+        let leftKF = new KeyframeEffect(
+            mover.element,
+            [
+                { transform: `translate3d(${start.x}px,${start.y}px,${start.z}px)
+                rotateY(-4deg)` },
+                { transform: "translate3d(-500px,800px,-12px) " +
+                        "rotateY(4deg) rotateX(-8deg)" }
+
+            ],
+            {
+                duration: 5400,
+                direction: "alternate",
+                easing: "ease-in-out",
+                iterations: 'Infinity'
+            },
+        );
+        const leftAnim = new Animation(leftKF, document.timeline);
+
+        leftAnim.play()
+
+    }
+
+    const rollAnimDice = random(10)
+
+    rollAnimDice < 5 ? [
+        animatorLeft(olivejar), animatorRight(toothpickjar) ] : [
+        animatorLeft(toothpickjar), animatorRight(olivejar)
+    ]
+
+    addEventListener("message", (event) => {
+        if (event.data?.type !== "held-item") return;
+        document.body.style.cursor = event.data.img
+            ? `url("${event.data.img}") ${event.data.x} ${event.data.y}, auto`
+            : "";
+    });
+
+    const HOTSPOTS = { olivejar: [24, 40], toothpickjar: [24, 40] };  // px inside the cursor file
+
+    document.querySelectorAll("#items-container img").forEach((img) => {
+        img.addEventListener("click", () => {
+            img.style.visibility = "hidden";                    // out of the room
+            const [x, y] = HOTSPOTS[img.id];
+
+            const pickupsound = document.createElement('audio');
+
+            if (img.src.includes("OIP")) {
+                pickupsound.src = '../sounds/olive-jar-pickup.mp3'
+                pickupsound.volume = 0.77;
+            } else {
+                pickupsound.src = '../sounds/toothpickup.mp3'
+                pickupsound.volume=0.6
+            }
+            pickupsound.play()
+
+            let cursorurl = img.dataset.cursor || img.src.replace(/\.png$/i, "-cursor.png")
+            document.body.style.cursor = `url("${cursorurl}") ${x} ${y}, auto`;
+            window.parent.postMessage({ type: "held-item", img: cursorurl, x, y },
+                window.location.origin);
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

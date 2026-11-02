@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            position:fixed;
+            width:100%;
+            perspective:800px;
+            transform-style:preserve-3d;
+        }
+        img {
+            position:fixed;
+            transform :
+            translate3d(-319px,-260px,0)
+            scale3d(1,0.8,1);
+
+        }
+
+        body.toothpicked, body.toothpicked * {
+            cursor: url("toothpick-cursor.png") 10 4, auto !important;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>olivearea</title>
+</head>
+<body>
+    <img
+        usemap="#olive1"
+        src="olive1.png"
+        alt="olive..."
+        height="600"
+        width="800"
+    />
+
+    <map name="olive1">
+        <area shape = "circle"
+              alt = "olive..."
+              href = "smashed-olive.html"
+              coords = "380, 280, 120"
+              />
+
+    </map>
+
+</body>
+</html>
+<script>
+
+    let armed = false;
+
+    window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+            armed=false;
+            document.body.classList.remove("toothpicked");
+        }
+        window.parent.postMessage({ type: "olive-area-ready" }, window.location.origin);
+
+    });
+
+    window.addEventListener("message", (event) => {
+        if (event.data?.type === "arm-toothpick") {
+            armed = true;
+            document.body.style.cursor = 'url("toothpick-cursor.png") 10 4, auto';
+            document.body.classList.add("toothpicked");
+
+        }
+    });
+
+    /*
+    window.addEventListener("load", () => {
+        window.parent.postMessage({ type: "olive-area-ready" }, window.location.origin);
+    });
+
+     */
+
+    window.addEventListener("click", (event) => {
+        if (event.target.closest?.('area, a')) event.preventDefault();
+        onOliveClick();
+    })
+
+    function onOliveClick() {
+        if (armed) {
+            window.parent.postMessage({ type: "pierce" }, window.location.origin);
+            location.href = "pierced-olive.html";
+        } else {
+            window.parent.postMessage({ type: "smash" }, window.location.origin);
+            location.href = "smashed-olive.html";
+        }
+    }
+
+
+</script>

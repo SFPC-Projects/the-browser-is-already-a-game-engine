@@ -1,0 +1,88 @@
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+
+<title>10</title>
+
+
+<style id="route-language-styles">
+/* Minimal persistent language selector, isolated from original artwork */
+#route-lang-selector {
+ position:fixed!important; top:12px!important; right:12px!important;
+ left:auto!important; bottom:auto!important; z-index:2147483647!important;
+ display:flex!important; align-items:center!important; gap:0!important;
+ box-sizing:border-box!important; padding:4px 6px!important; margin:0!important;
+ background:rgba(255,255,255,.94)!important; border:1px solid #222!important;
+ border-radius:0!important; color:#111!important; box-shadow:none!important;
+ opacity:.85!important; font:12px/1.3 "Courier New",monospace!important;
+ letter-spacing:0!important; text-transform:none!important; width:auto!important; height:auto!important;
+}
+#route-lang-selector:hover, #route-lang-selector:focus-within{opacity:1!important}
+#route-lang-selector a {font:inherit!important; color:#111!important;
+ padding:3px 6px!important; margin:0!important; text-decoration:none!important;
+ display:inline-block!important; text-shadow:none!important; background:transparent!important;
+ border:0!important; width:auto!important; height:auto!important; opacity:1!important;
+}
+#route-lang-selector a[aria-current="page"] {background:#111!important; color:#fff!important; font-weight:bold!important}
+#route-lang-selector span {color:#777!important; font:inherit!important}
+</style>
+</head>
+<body>
+
+<pre>
+
+<font size= "20" black="green" </font>
+
+Bankta durmaktayım,
+Balon cebimde
+İki dilek diledim üçünü sana bıraktım,
+Ona fısıldayıp sana gelmesi için 3 <a href="su2.html" >rota</a> yazdım,
+
+</pre>
+
+
+
+<nav id="route-lang-selector" aria-label="Language / Dil"><a href="10.html" lang="tr" aria-current="page">TR</a><span aria-hidden="true">/</span><a href="en/10.html" lang="en">EN</a></nav>
+<script>
+(function(){
+  var selector=document.getElementById('route-lang-selector');
+  if(!selector) return;
+  var key='fifteen-day-route-switch';
+  var language=document.documentElement.lang||'tr';
+  var page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+  var specialMap=document.querySelectorAll('.dugum');
+  function snapshot(){
+    var details=[].map.call(document.querySelectorAll('details'),function(node){return node.open?1:0;});
+    var state={page:page, from:language, details:details, x:window.scrollX, y:window.scrollY, hash:location.hash};
+    if(specialMap.length){
+      state.active=[].findIndex.call(specialMap,function(n){return n.classList.contains('aktif')});
+      state.stage=!!(document.getElementById('sahne') && document.getElementById('sahne').style.display==='block');
+    }
+    try{sessionStorage.setItem(key,JSON.stringify(state));}catch(e){}
+  }
+  [].forEach.call(selector.querySelectorAll('a'),function(a){
+    a.addEventListener('click',function(){
+      snapshot();
+      if(location.hash && a.getAttribute('href').indexOf('#')===-1) a.href+=location.hash;
+    });
+  });
+  try{
+    var stored=JSON.parse(sessionStorage.getItem(key)||'null');
+    if(!stored || stored.page!==page || stored.from===language)return;
+    sessionStorage.removeItem(key);
+    [].forEach.call(document.querySelectorAll('details'),function(n,i){n.open=!!stored.details[i]});
+    if(specialMap.length && typeof window.sonrakiDugum==='function'){
+      var active=Math.max(0,Math.min(specialMap.length-1,stored.active||0));
+      for(var j=0;j<active;j++)window.sonrakiDugum();
+      if(stored.stage && typeof window.temsilBaslat==='function')window.temsilBaslat();
+    }
+    window.addEventListener('load',function(){
+      setTimeout(function(){window.scrollTo({left:stored.x||0,top:stored.y||0,behavior:'instant'});},40);
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+
+</head>
+</html>

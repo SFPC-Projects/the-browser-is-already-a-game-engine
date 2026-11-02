@@ -1,0 +1,9 @@
+.peynir-link {
+  width: 220px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.peynir-link:hover {
+  transform: scale(1.1) rotate(-3deg);
+}

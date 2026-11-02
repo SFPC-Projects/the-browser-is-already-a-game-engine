@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+        #aisles-bkg {
+            position:relative;
+            width:160vmin;
+            height: 30vmin;
+            perspective:370px;
+            perspective-origin: 50% 50%;
+
+            margin:5vmin;
+            transform-style:preserve-3d;
+
+            transform:
+            translate3d(-100px,0,-500px)
+                    scale3d(0.7,0.7,1);
+
+        }
+
+        #aisle-iframe {
+            position:fixed;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+
+            width:200vmin;
+            height:150vmin;
+
+            transform:
+            translate3d(-280px, 450px, 0px)
+            scale3d(1.9,1.9,1);
+
+
+        }
+
+
+        body {
+            overflow:hidden;
+
+            background-image: url("./secrets/box.gif");
+            background-repeat: repeat;
+            background-color: blue;
+            background-size: 200vmin;
+
+            margin: 60px;
+            padding: 10px;
+            border-image: url("./secrets/box.gif") 100 / 200px 40px 110px 58px / 18px 14px 9px 4px
+            round;
+        }
+
+        button {
+            appearance: none;
+            border: 3px groove crimson;
+            background: yellow;
+            color: blue;
+            cursor: inherit;
+
+        }
+
+
+        #goto-counter {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            font-family: cursive;
+            cursor: pointer;
+        }
+
+        #counter-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        #counter-overlay iframe {
+            width: 90vmin;
+            height: 70vmin;
+            border: medium double darkgoldenrod;
+            /*
+            background: ;
+
+             */
+        }
+
+        #olives {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(100%);
+            padding: 8px 16px;
+            font-family: cursive;
+            cursor: pointer;
+        }
+
+        #money {
+            z-index: 99;
+            transform:
+            translate3d(1100px,-400px, 10px)
+        }
+
+        #msgdiv {
+            position: fixed;
+            inset: 0;
+            margin-left: 20px;
+            margin-top: 18px;
+            /*
+            align-items: center;
+            justify-content: center;
+
+             */
+            z-index: 1001;
+            transform:
+            scale3d(1,0.61,1);
+
+        }
+
+
+
+    </style>
+    <meta charset="UTF-8">
+    <title>aisles</title>
+    <link rel="icon" href="./aisles_mask.png">
+</head>
+<body>
+<div id="fitcontainer">
+
+
+    <div id = "aisles-bkg">
+      <video autoplay
+         loop
+         muted
+         width="100%"
+         src="./secrets/box.mp4">
+
+     </video>
+    </div>
+
+    <iframe
+            id = "aisle-iframe"
+        frameborder=0
+        src="./aisles.html">
+
+    </iframe>
+
+
+</div>
+
+
+<button id="goto-counter" type="button">go to counter</button>
+
+<button id="olives" type="button"> olives. </button>
+
+
+<audio  id = "doorSound"
+        autoplay
+       src="../sounds/aisles-door-entry.mp3">
+
+</audio>
+
+<script type = "module">
+    import { showMessage, dismissMessage } from "../../olive-events.js";
+
+
+    import { Inventory } from "../../olive-events.js";
+
+    document.querySelector("#aisles-bkg video")
+        .playbackRate = 0.5;
+
+    let heldItem = null;
+
+    let holding = []
+
+    addEventListener("message", (event) => {
+        if (event.data?.type !== "held-item") return;
+        heldItem = event.data;
+        document.body.style.cursor = heldItem.img
+            ? `url("${heldItem.img}") ${heldItem.x} ${heldItem.y}, auto`
+            : "";
+
+        if (heldItem.img.includes("OIP")) {
+            holding.push('OIP')
+
+        } else {
+            holding.push('toothpicks')
+
+        }
+
+        for (const iframe of document.querySelectorAll("iframe")) {
+            if (iframe.contentWindow !== event.source) {                 // skip the sender
+                iframe.contentWindow?.postMessage(heldItem, window.location.origin);
+            }
+        }
+    });
+
+    pushHeldOnLoad(document.getElementById("aisle-iframe"));
+
+
+    function pushHeldOnLoad(frame) {
+        frame.addEventListener("load", () => {
+            if (heldItem) frame.contentWindow.postMessage(heldItem, window.location.origin);
+        });
+        if (frame.contentDocument?.readyState === "complete") {
+            if (heldItem) frame.contentWindow.postMessage(heldItem, window.location.origin);
+        }
+    }
+
+    function goingtoCounter() {
+        const counterdiv = document.createElement("div");
+        counterdiv.id = "counter-overlay";
+        const counterframe = document.createElement("iframe");
+        counterframe.src = "./counter.html";
+        counterdiv.appendChild(counterframe);
+        document.body.appendChild(counterdiv);
+
+        pushHeldOnLoad(counterframe);
+
+        counterdiv.addEventListener("click", () => counterdiv.remove());
+    }
+
+    function dismissCounter() {
+        counterDisplay()?.remove();
+    }
+
+    document.getElementById("goto-counter")
+        .addEventListener("click", () => {
+            const clicksound = document.createElement('audio')
+            clicksound.src = "../sounds/click.mp3"
+            clicksound.play();
+
+            Inventory.items['cart'] = holding;
+            sessionStorage.setItem('cart', JSON.stringify(Inventory.items['cart']))
+            goingtoCounter();
+
+        });
+
+
+    addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            dismissCounter();
+            Inventory.showWallet();
+        }
+    });
+
+    addEventListener("message", (event) => {
+        if (event.data?.type === "counter-closed") {
+            dismissCounter();
+            Inventory.showWallet();
+        }
+    });
+
+    const doorSound = document.getElementById('doorSound')
+    doorSound.onended = () => {
+        const aisleAmbience = document.createElement('audio');
+        aisleAmbience.src = 'convenient.mp3';
+        aisleAmbience.volume=0.59
+        aisleAmbience.play()
+        aisleAmbience.loop = true;
+    };
+
+    document.getElementById('olives')
+        .addEventListener("click", () => {
+            const clicksound = document.createElement('audio')
+            clicksound.src = "../sounds/click.mp3"
+            clicksound.play();
+
+            location.href='../../index.html';
+        })
+
+    Inventory.showWallet()
+
+    addEventListener("message", (event) => {
+        if (event.data?.type === "purchased") {
+            holding = [];
+            Inventory.showWallet();
+
+            let itemdata = event.data;
+            const boughtdata = Array.isArray(itemdata.data) ? itemdata.data : [itemdata.data];
+
+            console.log(itemdata);
+
+            let olives = 0, toothpicks = 0;
+            if (itemdata.chose === 'olives') {
+                olives = boughtdata[0] ?? 0;
+
+            } else if (itemdata.chose === 'toothpicks'){
+                toothpicks = boughtdata[0] ?? 0;
+
+            } else {
+                olives = boughtdata[0] ?? 0;
+                toothpicks = boughtdata[1] ?? 0;
+
+            }
+            showMessage("purchased", {olives, toothpicks});
+
+        }
+
+    });
+
+    window.addEventListener("message", (event) => {
+        if (event.data?.type === "massage-closed") dismissMessage();
+    });
+
+
+
+
+</script>
+
+</body>
+</html>

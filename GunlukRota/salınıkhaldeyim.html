@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>salınık haldeyim</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background: #f2f2ed;
+            color: black;
+
+            font-family: "Courier New", monospace;
+
+            overflow: auto;
+
+        }
+
+
+
+        /* =====================================
+           DEV METİN HARİTASI
+        ===================================== */
+
+
+        #harita {
+
+            position: relative;
+
+            width: 3300px;
+            height: 2800px;
+
+            background: #f2f2ed;
+
+        }
+
+
+
+        /* =====================================
+           CÜMLELER
+        ===================================== */
+
+
+        .dugum {
+
+            position: absolute;
+
+            max-width: 480px;
+
+            font-size: 27px;
+            line-height: 1.15;
+
+            cursor: pointer;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition:
+                opacity 0.6s,
+                font-size 0.6s,
+                transform 0.6s;
+
+        }
+
+
+        .dugum.gorunur {
+
+            opacity: 1;
+            visibility: visible;
+
+        }
+
+
+        .dugum.aktif {
+
+            font-size: 38px;
+
+        }
+
+
+        /*
+        geride bıraktığımız cümle
+        */
+
+        .dugum.gecmis {
+
+            font-size: 13px;
+            opacity: 0.3;
+
+        }
+
+
+        /*
+        daha eski cümle tamamen kayboluyor
+        */
+
+        .dugum.unutuldu {
+
+            opacity: 0;
+            pointer-events: none;
+
+        }
+
+
+        .dugum:hover {
+
+            font-style: italic;
+
+        }
+
+
+
+        /* =====================================
+           FARKLI AÇILAR
+        ===================================== */
+
+
+        .egik-sol {
+
+            transform: rotate(-10deg);
+
+        }
+
+
+        .egik-sag {
+
+            transform: rotate(11deg);
+
+        }
+
+
+        .egik-hafif {
+
+            transform: rotate(-4deg);
+
+        }
+
+
+        .ters {
+
+            transform: rotate(180deg);
+
+        }
+
+
+        .dikey {
+
+            transform: rotate(90deg);
+
+        }
+
+
+        .dikey-ters {
+
+            transform: rotate(-90deg);
+
+        }
+
+
+
+        /* =====================================
+           ÖZEL METİNLER
+        ===================================== */
+
+
+        .buyuk {
+
+            font-size: 56px;
+
+        }
+
+
+        #neler {
+
+            font-size: 62px;
+
+        }
+
+
+        #emirler {
+
+            line-height: 1.7;
+
+        }
+
+
+        #emirler span {
+
+            display: block;
+
+        }
+
+
+        #max-alti-ay {
+
+            max-width: 350px;
+
+        }
+
+
+        #tikaniklik {
+
+            max-width: 240px;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        #pihti {
+
+            max-width: 250px;
+
+        }
+
+
+        #ne-alakaysa {
+
+            font-size: 17px;
+
+        }
+
+
+        #baya-alaka {
+
+            font-size: 55px;
+
+        }
+
+
+        #temsil-baslat {
+
+            font-size: 65px;
+
+        }
+
+
+        #temsil-baslat:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+
+        /* =====================================
+           SAHNE
+        ===================================== */
+
+
+        #sahne {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            overflow: hidden;
+
+            background: black;
+
+            z-index: 1000;
+
+        }
+
+
+
+        /* =====================================
+           KUŞ = BACKGROUND
+        ===================================== */
+
+
+        #kus-background {
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image: url("kus.gif");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            z-index: 1;
+
+        }
+
+
+
+        /* hafif karanlık katman */
+
+        #karanlik {
+
+            position: absolute;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.08);
+
+            z-index: 2;
+
+            pointer-events: none;
+
+        }
+
+
+
+        /* =====================================
+           FİL
+        ===================================== */
+
+
+        #fil {
+
+            position: absolute;
+
+            right: -700px;
+            bottom: 0;
+
+            width: 380px;
+
+            z-index: 10;
+
+        }
+
+
+        #fil img {
+
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+        }
+
+
+        #fil.fil-gir {
+
+            animation: filGir 3.5s forwards;
+
+        }
+
+
+        @keyframes filGir {
+
+            from {
+
+                right: -700px;
+
+                transform: rotate(8deg);
+
+            }
+
+            to {
+
+                right: 10%;
+
+                transform: rotate(-4deg);
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           MASA
+        ===================================== */
+
+
+        #masa {
+
+            position: absolute;
+
+            left: 34%;
+            bottom: -800px;
+
+            width: 520px;
+
+            z-index: 15;
+
+        }
+
+
+        #masa img {
+
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+        }
+
+
+        #masa.masa-gir {
+
+            animation: masaGir 2.8s forwards;
+
+        }
+
+
+        @keyframes masaGir {
+
+            from {
+
+                bottom: -800px;
+
+                transform: rotate(-8deg);
+
+            }
+
+            to {
+
+                bottom: 3%;
+
+                transform: rotate(2deg);
+
+            }
+
+        }
+
+
+
+        /* =====================================
+           STEVE JOBS
+        ===================================== */
+
+
+        #steve {
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            width: min(85vw, 1000px);
+
+            opacity: 0;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0.08)
+                rotate(-12deg);
+
+            transition:
+                opacity 0.8s,
+                transform 2.8s;
+
+            z-index: 30;
+
+        }
+
+
+        #steve.steve-gir {
+
+            opacity: 1;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1)
+                rotate(0deg);
+
+        }
+
+
+
+        /*
+        Steve'in üstüne görünmez link koyuyoruz.
+        GIF'in neresine basarsan bas steve.html açılır.
+        */
+
+        #steve-link {
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 100;
+
+            cursor: crosshair;
+
+        }
+
+
+
+        #enter {
+
+            position: absolute;
+
+            left: 50%;
+            bottom: 20px;
+
+            transform: translateX(-50%);
+
+            color: white;
+
+            font-size: 13px;
+
+            opacity: 0;
+
+            transition: opacity 0.3s;
+
+            pointer-events: none;
+
+            z-index: 110;
+
+        }
+
+
+        #steve:hover #enter {
+
+            opacity: 1;
+
+        }
+
+
+
+        /* =====================================
+           KÜÇÜK SAHNE YAZISI
+        ===================================== */
+
+
+        #sahne-yazi {
+
+            position: absolute;
+
+            left: 20px;
+            bottom: 15px;
+
+            color: white;
+
+            font-size: 11px;
+
+            opacity: 0.7;
+
+            z-index: 50;
+
+        }
+
+
+
+        /* =====================================
+           MOBİLDE ÇOK PATLAMASIN
+        ===================================== */
+
+
+        @media (max-width: 700px) {
+
+            .dugum {
+
+                max-width: 300px;
+
+                font-size: 22px;
+
+            }
+
+
+            .dugum.aktif {
+
+                font-size: 30px;
+
+            }
+
+
+            #fil {
+
+                width: 250px;
+
+            }
+
+
+            #masa {
+
+                width: 320px;
+
+            }
+
+        }
+
+
+    </style>
+
+
+<style id="route-language-styles">
+/* Minimal persistent language selector, isolated from original artwork */
+#route-lang-selector {
+ position:fixed!important; top:12px!important; right:12px!important;
+ left:auto!important; bottom:auto!important; z-index:2147483647!important;
+ display:flex!important; align-items:center!important; gap:0!important;
+ box-sizing:border-box!important; padding:4px 6px!important; margin:0!important;
+ background:rgba(255,255,255,.94)!important; border:1px solid #222!important;
+ border-radius:0!important; color:#111!important; box-shadow:none!important;
+ opacity:.85!important; font:12px/1.3 "Courier New",monospace!important;
+ letter-spacing:0!important; text-transform:none!important; width:auto!important; height:auto!important;
+}
+#route-lang-selector:hover, #route-lang-selector:focus-within{opacity:1!important}
+#route-lang-selector a {font:inherit!important; color:#111!important;
+ padding:3px 6px!important; margin:0!important; text-decoration:none!important;
+ display:inline-block!important; text-shadow:none!important; background:transparent!important;
+ border:0!important; width:auto!important; height:auto!important; opacity:1!important;
+}
+#route-lang-selector a[aria-current="page"] {background:#111!important; color:#fff!important; font-weight:bold!important}
+#route-lang-selector span {color:#777!important; font:inherit!important}
+</style>
+</head>
+
+
+
+<body>
+
+
+
+<!-- ==================================================
+     METİN HARİTASI
+================================================== -->
+
+
+<div id="harita">
+
+
+
+    <!-- 1 -->
+
+
+    <div
+        class="dugum buyuk"
+        style="
+            left: 180px;
+            top: 180px;
+        ">
+
+        salınık haldeyim.
+
+    </div>
+
+
+
+    <!-- 2 -->
+
+
+    <div
+        class="dugum egik-sag"
+        style="
+            left: 850px;
+            top: 420px;
+        ">
+
+        bi yeri toplama ihtiyaci hissettigim icin
+
+    </div>
+
+
+
+    <!-- 3 -->
+
+
+    <div
+        class="dugum ters"
+        style="
+            left: 1450px;
+            top: 180px;
+        ">
+
+        yanimda tek bana ait oda olan masaustume giristim
+
+    </div>
+
+
+
+    <!-- 4 -->
+
+
+    <div
+        class="dugum egik-sol"
+        style="
+            left: 2000px;
+            top: 600px;
+        ">
+
+        sonra da notlari biraz topluyim dedim.
+
+    </div>
+
+
+
+    <!-- 5 -->
+
+
+    <div
+        class="dugum egik-sol"
+        id="neler"
+        style="
+            left: 1450px;
+            top: 900px;
+        ">
+
+        neler neler neler.
+
+    </div>
+
+
+
+    <!-- 6 -->
+
+
+    <div
+        class="dugum dikey"
+        id="emirler"
+        style="
+            left: 850px;
+            top: 1050px;
+        ">
+
+        <span>bunu yap</span>
+
+        <span>sunu yap</span>
+
+        <span>bunu yap</span>
+
+    </div>
+
+
+
+    <!-- 7 -->
+
+
+    <div
+        class="dugum egik-sag"
+        style="
+            left: 300px;
+            top: 1450px;
+        ">
+
+        toplarken iclerinde kayboldum.
+
+    </div>
+
+
+
+    <!-- 8 -->
+
+
+    <div
+        class="dugum"
+        style="
+            left: 900px;
+            top: 1650px;
+        ">
+
+        sonra cok da incelemeden silmeye basladim.
+
+    </div>
+
+
+
+    <!-- 9 -->
+
+
+    <div
+        class="dugum buyuk egik-sol"
+        style="
+            left: 1550px;
+            top: 1350px;
+        ">
+
+        ve o an cok ok geldi.
+
+    </div>
+
+
+
+    <!-- 10 -->
+
+
+    <div
+        class="dugum dikey-ters"
+        style="
+            left: 2200px;
+            top: 1000px;
+        ">
+
+        sonra yururken fazla mi saldirgan bi tutum gibi dusundum
+
+    </div>
+
+
+
+    <!-- 11 -->
+
+
+    <div
+        class="dugum egik-sag"
+        style="
+            left: 2700px;
+            top: 1450px;
+        ">
+
+        ama sonra yine cok ok geldi.
+
+    </div>
+
+
+
+    <!-- 12 -->
+
+
+    <div
+        class="dugum ters"
+        id="max-alti-ay"
+        style="
+            left: 2350px;
+            top: 1950px;
+        ">
+
+        bunu yap dedigin seyin max suresi 6 aydir.
+
+        <br><br>
+
+        sonra yapmicaksin zaten bence.
+
+        <br><br>
+
+        o yuzden silinsin gitsin.
+
+    </div>
+
+
+
+    <!-- 13 -->
+
+
+    <div
+        class="dugum egik-hafif"
+        style="
+            left: 1650px;
+            top: 2200px;
+        ">
+
+        bi de bi plan yapilmayacagini kendine itiraf edemediginde
+
+        <br><br>
+
+        yeni bi plan da dogmuyor herhalde.
+
+    </div>
+
+
+
+    <!-- 14 -->
+
+
+    <div
+        class="dugum dikey"
+        id="tikaniklik"
+        style="
+            left: 1150px;
+            top: 1900px;
+        ">
+
+        ya da yolda tikaniklik yapiyor.
+
+    </div>
+
+
+
+    <!-- 15 -->
+
+
+    <div
+        class="dugum egik-sol"
+        style="
+            left: 650px;
+            top: 2300px;
+        ">
+
+        yasli bedenler kanlari daha akiskan olmasi icin gunluk ilac aliyor.
+
+    </div>
+
+
+
+    <!-- 16 -->
+
+
+    <div
+        class="dugum ters"
+        id="pihti"
+        style="
+            left: 250px;
+            top: 2000px;
+        ">
+
+        pihti atmasin diye.
+
+        <br><br>
+
+        bunu da yeni ogrendim.
+
+    </div>
+
+
+
+    <!-- 17 -->
+
+
+    <div
+        class="dugum dikey-ters"
+        id="ne-alakaysa"
+        style="
+            left: 350px;
+            top: 2450px;
+        ">
+
+        ne alakaysa.
+
+    </div>
+
+
+
+    <!-- 18 -->
+
+
+    <div
+        class="dugum egik-sag"
+        id="baya-alaka"
+        style="
+            left: 1000px;
+            top: 2500px;
+        ">
+
+        baya alaka.
+
+    </div>
+
+
+
+    <!-- 19 -->
+
+
+    <div
+        class="dugum"
+        id="temsil-baslat"
+        data-temsil="true"
+        style="
+            left: 1850px;
+            top: 2470px;
+        ">
+
+        temsil başladı.
+
+    </div>
+
+
+
+</div>
+
+
+
+<!-- ==================================================
+     SAHNE
+================================================== -->
+
+
+<div id="sahne">
+
+
+
+    <!-- KUŞ GIF BACKGROUND -->
+
+
+    <div id="kus-background"></div>
+
+
+    <div id="karanlik"></div>
+
+
+
+    <!-- FİL -->
+
+
+    <div id="fil">
+
+        <img
+            src="fil-guneslik.gif"
+            alt="fil şeklinde araba güneşliği">
+
+    </div>
+
+
+
+    <!-- MASA -->
+
+
+    <div id="masa">
+
+        <img
+            src="masa.png"
+            alt="ısırılmış masa">
+
+    </div>
+
+
+
+    <!-- STEVE JOBS -->
+
+
+    <div id="steve">
+
+
+        <div
+            class="tenor-gif-embed"
+
+            data-postid="10120961447197830421"
+
+            data-share-method="host"
+
+            data-aspect-ratio="1"
+
+            data-width="100%">
+
+
+            <a
+                href="https://tenor.com/view/steve-jobs-apple-gif-10120961447197830421">
+
+                Steve Jobs Apple GIF
+
+            </a>
+
+
+        </div>
+
+
+
+        <!--
+        Steve'e tıklayınca ayrı sayfaya gidiyoruz.
+        Sonra steve.html'in içeriğini birlikte yapacağız.
+        -->
+
+
+        <a
+            href="steve.html"
+            id="steve-link"
+            aria-label="Steve Jobs'a gir">
+        </a>
+
+
+
+        <div id="enter">
+
+            [enter]
+
+        </div>
+
+
+    </div>
+
+
+
+    <div id="sahne-yazi">
+
+        sırayla sahneye girmeye başladılar.
+
+    </div>
+
+
+
+</div>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+
+<script>
+
+
+    const dugumler =
+        document.querySelectorAll(".dugum");
+
+
+    let simdiki = 0;
+
+
+
+    /* ilk cümle */
+
+    dugumler[0].classList.add(
+        "gorunur",
+        "aktif"
+    );
+
+
+
+    function sonrakiDugum() {
+
+
+        if (
+            simdiki >= dugumler.length - 1
+        ) {
+
+            return;
+
+        }
+
+
+
+        const eski =
+            dugumler[simdiki];
+
+
+        simdiki++;
+
+
+        const yeni =
+            dugumler[simdiki];
+
+
+
+        /* eski küçülüyor */
+
+        eski.classList.remove(
+            "aktif"
+        );
+
+
+        eski.classList.add(
+            "gecmis"
+        );
+
+
+
+        /* yeni ortaya çıkıyor */
+
+        yeni.classList.add(
+            "gorunur",
+            "aktif"
+        );
+
+
+
+        /*
+        Çok eski olanları siliyoruz.
+        Ekranda sadece birkaç iz kalıyor.
+        */
+
+        dugumler.forEach(
+            function(dugum, index) {
+
+
+                if (
+                    index < simdiki - 2
+                ) {
+
+                    dugum.classList.add(
+                        "unutuldu"
+                    );
+
+                }
+
+
+            }
+        );
+
+
+
+        /*
+        Kamera yeni cümleye kayıyor.
+        */
+
+
+        const hedefX =
+
+            yeni.offsetLeft
+
+            -
+
+            window.innerWidth / 2
+
+            +
+
+            yeni.offsetWidth / 2;
+
+
+
+        const hedefY =
+
+            yeni.offsetTop
+
+            -
+
+            window.innerHeight / 2
+
+            +
+
+            yeni.offsetHeight / 2;
+
+
+
+        window.scrollTo({
+
+            left: hedefX,
+
+            top: hedefY,
+
+            behavior: "smooth"
+
+        });
+
+
+    }
+
+
+
+    dugumler.forEach(
+        function(dugum, index) {
+
+
+            dugum.addEventListener(
+                "click",
+
+                function() {
+
+
+                    /*
+                    yalnızca şu an bulunduğun
+                    cümle çalışır
+                    */
+
+
+                    if (
+                        index !== simdiki
+                    ) {
+
+                        return;
+
+                    }
+
+
+
+                    /*
+                    temsil başladı
+                    */
+
+
+                    if (
+                        dugum.dataset.temsil
+                        ===
+                        "true"
+                    ) {
+
+                        temsilBaslat();
+
+                        return;
+
+                    }
+
+
+
+                    sonrakiDugum();
+
+
+                }
+            );
+
+
+        }
+    );
+
+
+
+    /* =====================================
+       TEMSİL
+    ===================================== */
+
+
+    function temsilBaslat() {
+
+
+        /*
+        metin dünyasını kapat
+        */
+
+
+        document
+            .getElementById("harita")
+            .style.display =
+            "none";
+
+
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+
+
+        /*
+        sahneyi aç
+        */
+
+
+        const sahne =
+            document.getElementById("sahne");
+
+
+        sahne.style.display =
+            "block";
+
+
+
+        /*
+        KUŞ zaten ilk saniyeden
+        background olarak görünüyor
+        */
+
+
+
+        /*
+        FİL
+        */
+
+
+        setTimeout(
+            function() {
+
+
+                document
+                    .getElementById("fil")
+                    .classList
+                    .add("fil-gir");
+
+
+            },
+
+            2500
+        );
+
+
+
+        /*
+        MASA
+        */
+
+
+        setTimeout(
+            function() {
+
+
+                document
+                    .getElementById("masa")
+                    .classList
+                    .add("masa-gir");
+
+
+            },
+
+            5500
+        );
+
+
+
+        /*
+        DEV STEVE JOBS
+        */
+
+
+        setTimeout(
+            function() {
+
+
+                document
+                    .getElementById("steve")
+                    .classList
+                    .add("steve-gir");
+
+
+            },
+
+            8500
+        );
+
+
+    }
+
+
+</script>
+
+
+
+<!-- TENOR STEVE JOBS -->
+
+
+<script
+    type="text/javascript"
+    async
+    src="https://tenor.com/embed.js">
+</script>
+
+
+
+
+<nav id="route-lang-selector" aria-label="Language / Dil"><a href="salınıkhaldeyim.html" lang="tr" aria-current="page">TR</a><span aria-hidden="true">/</span><a href="en/salınıkhaldeyim.html" lang="en">EN</a></nav>
+<script>
+(function(){
+  var selector=document.getElementById('route-lang-selector');
+  if(!selector) return;
+  var key='fifteen-day-route-switch';
+  var language=document.documentElement.lang||'tr';
+  var page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+  var specialMap=document.querySelectorAll('.dugum');
+  function snapshot(){
+    var details=[].map.call(document.querySelectorAll('details'),function(node){return node.open?1:0;});
+    var state={page:page, from:language, details:details, x:window.scrollX, y:window.scrollY, hash:location.hash};
+    if(specialMap.length){
+      state.active=[].findIndex.call(specialMap,function(n){return n.classList.contains('aktif')});
+      state.stage=!!(document.getElementById('sahne') && document.getElementById('sahne').style.display==='block');
+    }
+    try{sessionStorage.setItem(key,JSON.stringify(state));}catch(e){}
+  }
+  [].forEach.call(selector.querySelectorAll('a'),function(a){
+    a.addEventListener('click',function(){
+      snapshot();
+      if(location.hash && a.getAttribute('href').indexOf('#')===-1) a.href+=location.hash;
+    });
+  });
+  try{
+    var stored=JSON.parse(sessionStorage.getItem(key)||'null');
+    if(!stored || stored.page!==page || stored.from===language)return;
+    sessionStorage.removeItem(key);
+    [].forEach.call(document.querySelectorAll('details'),function(n,i){n.open=!!stored.details[i]});
+    if(specialMap.length && typeof window.sonrakiDugum==='function'){
+      var active=Math.max(0,Math.min(specialMap.length-1,stored.active||0));
+      for(var j=0;j<active;j++)window.sonrakiDugum();
+      if(stored.stage && typeof window.temsilBaslat==='function')window.temsilBaslat();
+    }
+    window.addEventListener('load',function(){
+      setTimeout(function(){window.scrollTo({left:stored.x||0,top:stored.y||0,behavior:'instant'});},40);
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+
+</html>

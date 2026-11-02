@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        html, body { height: 100%; }
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            text-align: center;
+            background: yellow;
+            color: black;
+            font-family: Georgia, serif;
+        }
+        .message { padding: 16px 20px; }
+        h1 { font-size: 1.05rem; margin: 0 0 8px; }
+        p  { font-size: 0.9rem; margin: 0 0 12px; }
+        /*
+        .hint { font-size: 0.7rem; font-style: italic; opacity: 0.6; }
+
+         */
+    </style>
+</head>
+<body>
+<div class="message">
+    <h1 id="msg-title">…</h1>
+    <p id="msg-body"></p>
+    <!-- <div class="hint">click anywhere to continue</div> -->
+</div>
+
+
+<script>
+    window.addEventListener("message", (event) => {
+        if (event.origin !== window.location.origin) return;
+        if (event.data?.type === "render-massage") {   // matches olive-events.js
+            document.getElementById("msg-title").textContent = event.data.title;
+            document.getElementById("msg-body").textContent = event.data.body;
+        }
+    });
+
+    window.addEventListener("click", () => {
+        window.parent.postMessage({ type: "massage-closed" }, window.location.origin);
+    });
+</script>
+</body>
+</html>

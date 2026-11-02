@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>22 haziran encounterları</title>
+
+
+<style>
+
+
+/* ==================================================
+   GENEL
+================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+body {
+    background: black;
+    color: white;
+
+    font-family: "Courier New", monospace;
+}
+
+
+
+/* ==================================================
+   EKRAN
+================================================== */
+
+#viewport {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: black;
+}
+
+
+
+/* ==================================================
+   UZUN YATAY DÜNYA
+================================================== */
+
+#world {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 6500px;
+    height: 100vh;
+
+    background: black;
+
+    transform: translateX(0);
+
+    will-change: transform;
+}
+
+
+
+/* ==================================================
+   22 HAZİRAN BAŞLIĞI
+================================================== */
+
+#baslik {
+    position: fixed;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 2000;
+
+    color: #00ff38;
+
+    font-size: 17px;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 0 4px #00ff38,
+        0 0 9px #00ff38;
+
+    animation: yanipSon 1.8s infinite;
+}
+
+
+@keyframes yanipSon {
+
+    0% {
+        opacity: 1;
+    }
+
+    34% {
+        opacity: 1;
+    }
+
+    38% {
+        opacity: 0.15;
+    }
+
+    42% {
+        opacity: 1;
+    }
+
+    61% {
+        opacity: 1;
+    }
+
+    64% {
+        opacity: 0.3;
+    }
+
+    67% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+}
+
+
+
+/* ==================================================
+   FOTOĞRAFLAR
+================================================== */
+
+.foto {
+    position: absolute;
+
+    display: block;
+
+    height: auto;
+
+    object-fit: contain;
+
+    z-index: 20;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+
+    transition: transform 0.12s;
+}
+
+
+/*
+sadece hafif tepki
+*/
+
+.foto:hover {
+    transform: scale(1.08);
+    z-index: 100;
+}
+
+
+
+/* ==================================================
+   ASCII FOREST
+================================================== */
+
+.forest {
+    position: absolute;
+
+    margin: 0;
+    padding: 0;
+
+    color: #00ff38;
+
+    font-family: "Courier New", monospace;
+
+    white-space: pre;
+
+    line-height: 0.9;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    z-index: 3;
+}
+
+
+.forest-cok-soluk {
+    opacity: 0.12;
+}
+
+
+.forest-soluk {
+    opacity: 0.28;
+}
+
+
+.forest-orta {
+    opacity: 0.48;
+}
+
+
+.forest-parlak {
+    opacity: 0.8;
+
+    text-shadow:
+        0 0 4px #00ff38;
+}
+
+
+
+/* ==================================================
+   ASCII EV
+================================================== */
+
+#ascii-ev {
+    position: absolute;
+
+    left: 4200px;
+    bottom: 40px;
+
+    color: #00ff38;
+
+    font-size: 13px;
+    line-height: 12px;
+
+    white-space: pre;
+
+    opacity: 0.75;
+
+    z-index: 10;
+
+    text-shadow:
+        0 0 3px #00ff38;
+}
+
+
+
+/* ==================================================
+   YÜRÜYEN ASCII KARAKTER
+
+   DÜNYANIN İÇİNDE DEĞİL.
+   EKRANDA SABİT DURUYOR.
+================================================== */
+
+#player {
+    position: absolute;
+
+    left: 18%;
+    bottom: 34px;
+
+    z-index: 3000;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+    line-height: 16px;
+
+    white-space: pre;
+
+    text-align: center;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    text-shadow:
+        0 0 4px rgba(255,255,255,0.5);
+}
+
+
+
+/* ==================================================
+   KÜÇÜK YAZILAR
+================================================== */
+
+.not {
+    position: absolute;
+
+    color: #00ff38;
+
+    font-size: 9px;
+
+    opacity: 0.45;
+
+    z-index: 10;
+}
+
+
+
+/* ==================================================
+   KONTROL
+================================================== */
+
+#hint {
+    position: fixed;
+
+    left: 18px;
+    bottom: 15px;
+
+    z-index: 3000;
+
+    color: #00ff38;
+
+    font-size: 9px;
+
+    opacity: 0.28;
+
+    transition: opacity 1s;
+
+    pointer-events: none;
+}
+
+
+
+/* ==================================================
+   SON OK
+================================================== */
+
+#son {
+    position: absolute;
+
+    left: 6300px;
+    top: 49%;
+
+    color: #00ff38;
+
+    font-size: 30px;
+
+    opacity: 0.7;
+
+    animation: sonBlink 1s infinite;
+}
+
+
+@keyframes sonBlink {
+
+    50% {
+        opacity: 0.08;
+    }
+
+}
+
+
+
+/* ==================================================
+   MOBİL
+================================================== */
+
+@media (max-width: 700px) {
+
+    #baslik {
+        font-size: 12px;
+    }
+
+    #player {
+        left: 12%;
+        font-size: 15px;
+        line-height: 14px;
+    }
+
+}
+
+
+</style>
+
+
+<style id="route-language-styles">
+/* Minimal persistent language selector, isolated from original artwork */
+#route-lang-selector {
+ position:fixed!important; top:12px!important; right:12px!important;
+ left:auto!important; bottom:auto!important; z-index:2147483647!important;
+ display:flex!important; align-items:center!important; gap:0!important;
+ box-sizing:border-box!important; padding:4px 6px!important; margin:0!important;
+ background:rgba(255,255,255,.94)!important; border:1px solid #222!important;
+ border-radius:0!important; color:#111!important; box-shadow:none!important;
+ opacity:.85!important; font:12px/1.3 "Courier New",monospace!important;
+ letter-spacing:0!important; text-transform:none!important; width:auto!important; height:auto!important;
+}
+#route-lang-selector:hover, #route-lang-selector:focus-within{opacity:1!important}
+#route-lang-selector a {font:inherit!important; color:#111!important;
+ padding:3px 6px!important; margin:0!important; text-decoration:none!important;
+ display:inline-block!important; text-shadow:none!important; background:transparent!important;
+ border:0!important; width:auto!important; height:auto!important; opacity:1!important;
+}
+#route-lang-selector a[aria-current="page"] {background:#111!important; color:#fff!important; font-weight:bold!important}
+#route-lang-selector span {color:#777!important; font:inherit!important}
+</style>
+</head>
+
+
+
+<body>
+
+
+
+<!-- ==================================================
+     SABİT BAŞLIK
+================================================== -->
+
+<div id="baslik">
+
+    22 HAZİRAN ENCOUNTERLARI
+
+</div>
+
+
+
+<div id="hint">
+
+    ← &nbsp;&nbsp; →
+
+</div>
+
+
+
+<div id="viewport">
+
+
+
+    <!-- ==================================================
+         UZUN DÜNYA
+    ================================================== -->
+
+    <div id="world">
+
+
+
+        <!-- ==================================================
+             BAŞLANGIÇ FOREST
+        ================================================== -->
+
+        <pre
+            class="forest forest-soluk"
+            style="
+                left: 35px;
+                bottom: 15px;
+                font-size: 10px;
+            "
+        >
+       /\
+      /**\
+     /****\
+       ||
+       ||
+        </pre>
+
+
+
+        <pre
+            class="forest forest-cok-soluk"
+            style="
+                left: 170px;
+                top: 100px;
+                font-size: 8px;
+            "
+        >
+    /\
+   /**\
+  /****\
+    ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 1
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0054.jpg"
+            class="foto"
+
+            style="
+                left: 330px;
+                top: 30%;
+                width: 90px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- FOREST -->
+
+        <pre
+            class="forest forest-orta"
+            style="
+                left: 500px;
+                bottom: 20px;
+                font-size: 12px;
+            "
+        >
+          /\
+         /**\
+        /****\
+       /******\
+          ||
+          ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 2
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0071.jpg"
+            class="foto"
+
+            style="
+                left: 690px;
+                top: 14%;
+                width: 75px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             FOTO 3
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0090.jpg"
+            class="foto"
+
+            style="
+                left: 980px;
+                bottom: 75px;
+                width: 105px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- FOREST -->
+
+        <pre
+            class="forest forest-soluk"
+            style="
+                left: 1120px;
+                bottom: 10px;
+                font-size: 8px;
+            "
+        >
+ /\        /\
+/**\      /**\
+ ||      /****\
+ ||        ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 4
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0095.jpg"
+            class="foto"
+
+            style="
+                left: 1300px;
+                top: 43%;
+                width: 110px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             FOTO 5
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0103.jpg"
+            class="foto"
+
+            style="
+                left: 1620px;
+                top: 12%;
+                width: 85px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- DEV SOLUK AĞAÇ -->
+
+        <pre
+            class="forest forest-cok-soluk"
+            style="
+                left: 1750px;
+                top: -70px;
+                font-size: 22px;
+            "
+        >
+              /\
+             /**\
+            /****\
+           /******\
+          /********\
+         /**********\
+             ||||
+             ||||
+             ||||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 6
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0104.jpg"
+            class="foto"
+
+            style="
+                left: 1950px;
+                top: 38%;
+                width: 95px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             FOTO 7
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0105.jpg"
+            class="foto"
+
+            style="
+                left: 2240px;
+                bottom: 80px;
+                width: 80px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- FOREST -->
+
+        <pre
+            class="forest forest-parlak"
+            style="
+                left: 2380px;
+                bottom: 20px;
+                font-size: 8px;
+            "
+        >
+ /\     /\      /\
+/**\   /**\    /**\
+ ||   /****\    ||
+ ||     ||      ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 8
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0106.jpg"
+            class="foto"
+
+            style="
+                left: 2580px;
+                top: 16%;
+                width: 105px;
+            "
+
+            alt=""
+        >
+
+
+
+        <div
+            class="not"
+            style="
+                left: 2770px;
+                top: 60%;
+            "
+        >
+            ...
+        </div>
+
+
+
+        <!-- ==================================================
+             FOTO 9
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0027.jpg"
+            class="foto"
+
+            style="
+                left: 2920px;
+                top: 36%;
+                width: 75px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- FOREST -->
+
+        <pre
+            class="forest forest-soluk"
+            style="
+                left: 3060px;
+                bottom: 5px;
+                font-size: 11px;
+            "
+        >
+       /\         /\
+      /**\       /**\
+     /****\     /****\
+    /******\      ||
+       ||         ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 10
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0028.jpg"
+            class="foto"
+
+            style="
+                left: 3270px;
+                top: 10%;
+                width: 115px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             FOTO 11
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0029.jpg"
+            class="foto"
+
+            style="
+                left: 3600px;
+                top: 49%;
+                width: 80px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- DEV FOREST -->
+
+        <pre
+            class="forest forest-cok-soluk"
+            style="
+                left: 3690px;
+                top: -100px;
+                font-size: 25px;
+            "
+        >
+              /\
+             /**\
+            /****\
+           /******\
+          /********\
+         /**********\
+        /************\
+             ||||
+             ||||
+             ||||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 12
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0030.jpg"
+            class="foto"
+
+            style="
+                left: 3920px;
+                top: 19%;
+                width: 105px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             ASCII EV
+        ================================================== -->
+
+        <div id="ascii-ev">          /\
+         /  \
+        /    \
+       /______\
+       |      |
+       |  []  |
+       |      |
+       |  __  |
+       | |  | |
+_______|_|__|_|_______</div>
+
+
+
+        <!-- ==================================================
+             FOTO 13
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0031.jpg"
+            class="foto"
+
+            style="
+                left: 4470px;
+                top: 42%;
+                width: 90px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- MİNİ FOREST -->
+
+        <pre
+            class="forest forest-parlak"
+            style="
+                left: 4610px;
+                top: 150px;
+                font-size: 6px;
+            "
+        >
+ /\   /\   /\   /\
+/**\ /**\ /**\ /**\
+ ||   ||   ||   ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 14
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0032.jpg"
+            class="foto"
+
+            style="
+                left: 4780px;
+                top: 15%;
+                width: 95px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             FOTO 15
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0033.jpg"
+            class="foto"
+
+            style="
+                left: 5130px;
+                bottom: 75px;
+                width: 105px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- FOREST AZALIYOR -->
+
+        <pre
+            class="forest forest-soluk"
+            style="
+                left: 5310px;
+                bottom: 20px;
+                font-size: 9px;
+            "
+        >
+       /\
+      /**\
+     /****\
+       ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 16
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0034.jpg"
+            class="foto"
+
+            style="
+                left: 5530px;
+                top: 20%;
+                width: 100px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- MİNİ AĞAÇ -->
+
+        <pre
+            class="forest forest-parlak"
+            style="
+                left: 5730px;
+                bottom: 35px;
+                font-size: 6px;
+            "
+        >
+  /\
+ /**\
+/****\
+  ||
+        </pre>
+
+
+
+        <!-- ==================================================
+             FOTO 17
+        ================================================== -->
+
+        <img
+            src="IMG-20260623-WA0035.jpg"
+            class="foto"
+
+            style="
+                left: 5960px;
+                top: 38%;
+                width: 110px;
+            "
+
+            alt=""
+        >
+
+
+
+        <!-- ==================================================
+             SON
+        ================================================== -->
+
+        <div id="son">
+            →
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ==================================================
+         YÜRÜYEN ASCII KARAKTER
+
+         WORLD DIŞINDA.
+         O YÜZDEN EKRANDA KALIYOR.
+    ================================================== -->
+
+    <div id="player"> o
+/|\
+/ \</div>
+
+
+
+</div>
+
+
+
+<script>
+
+
+/* ==================================================
+   ELEMENTLER
+================================================== */
+
+const world =
+    document.getElementById("world");
+
+
+const hint =
+    document.getElementById("hint");
+
+
+const player =
+    document.getElementById("player");
+
+
+
+/* ==================================================
+   AYARLAR
+================================================== */
+
+const WORLD_WIDTH =
+    6500;
+
+
+let cameraX =
+    0;
+
+
+/*
+Her tuşa basışta ne kadar ilerlesin.
+*/
+
+const STEP =
+    100;
+
+
+
+/*
+ASCII karakterin yürüyüş frame'i
+*/
+
+let walkFrame =
+    false;
+
+
+
+/* ==================================================
+   ASCII YÜRÜME ANİMASYONU
+================================================== */
+
+function yurumeAnimasyonu(direction) {
+
+
+    walkFrame =
+        !walkFrame;
+
+
+
+    /*
+    SAĞA yürürken
+    */
+
+    if (
+        direction > 0
+    ) {
+
+
+        if (
+            walkFrame
+        ) {
+
+            player.textContent =
+` o
+/|\\
+/ >`;
+
+        }
+
+        else {
+
+            player.textContent =
+` o
+/|\\
+/ \\`;
+
+        }
+
+
+    }
+
+
+
+    /*
+    SOLA yürürken
+    */
+
+    else {
+
+
+        if (
+            walkFrame
+        ) {
+
+            player.textContent =
+` o
+/|\\
+< \\`;
+
+        }
+
+        else {
+
+            player.textContent =
+` o
+/|\\
+/ \\`;
+
+        }
+
+
+    }
+
+
+}
+
+
+
+/* ==================================================
+   KAMERA
+================================================== */
+
+function moveCamera(direction) {
+
+
+    cameraX +=
+        direction * STEP;
+
+
+
+    const maxCamera =
+
+        WORLD_WIDTH
+
+        -
+
+        window.innerWidth;
+
+
+
+    cameraX =
+
+        Math.max(
+
+            0,
+
+            Math.min(
+                cameraX,
+                maxCamera
+            )
+
+        );
+
+
+
+    world.style.transform =
+
+        "translateX("
+
+        +
+
+        (-cameraX)
+
+        +
+
+        "px)";
+
+
+
+    yurumeAnimasyonu(direction);
+
+
+}
+
+
+
+/* ==================================================
+   KLAVYE
+================================================== */
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event) {
+
+
+        const key =
+            event.key.toLowerCase();
+
+
+
+        /* ==================================================
+           SAĞ
+        ================================================== */
+
+        if (
+            event.key === "ArrowRight"
+
+            ||
+
+            key === "d"
+        ) {
+
+
+            event.preventDefault();
+
+
+
+            const maxCamera =
+
+                WORLD_WIDTH
+
+                -
+
+                window.innerWidth;
+
+
+
+            /*
+            EN SON NOKTADAYSA
+
+            tuşu bırakıp tekrar sağa bas:
+
+            sonraki.html
+            */
+
+            if (
+                cameraX >= maxCamera - 5
+
+                &&
+
+                !event.repeat
+            ) {
+
+
+                window.location.href =
+                    "sonraki.html";
+
+
+                return;
+
+            }
+
+
+
+            moveCamera(1);
+
+
+
+            hint.style.opacity =
+                "0";
+
+
+        }
+
+
+
+        /* ==================================================
+           SOL
+        ================================================== */
+
+        if (
+            event.key === "ArrowLeft"
+
+            ||
+
+            key === "a"
+        ) {
+
+
+            event.preventDefault();
+
+
+
+            moveCamera(-1);
+
+
+
+            hint.style.opacity =
+                "0";
+
+
+        }
+
+
+    }
+
+);
+
+
+</script>
+
+
+
+<nav id="route-lang-selector" aria-label="Language / Dil"><a href="steve.html" lang="tr" aria-current="page">TR</a><span aria-hidden="true">/</span><a href="en/steve.html" lang="en">EN</a></nav>
+<script>
+(function(){
+  var selector=document.getElementById('route-lang-selector');
+  if(!selector) return;
+  var key='fifteen-day-route-switch';
+  var language=document.documentElement.lang||'tr';
+  var page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+  var specialMap=document.querySelectorAll('.dugum');
+  function snapshot(){
+    var details=[].map.call(document.querySelectorAll('details'),function(node){return node.open?1:0;});
+    var state={page:page, from:language, details:details, x:window.scrollX, y:window.scrollY, hash:location.hash};
+    if(specialMap.length){
+      state.active=[].findIndex.call(specialMap,function(n){return n.classList.contains('aktif')});
+      state.stage=!!(document.getElementById('sahne') && document.getElementById('sahne').style.display==='block');
+    }
+    try{sessionStorage.setItem(key,JSON.stringify(state));}catch(e){}
+  }
+  [].forEach.call(selector.querySelectorAll('a'),function(a){
+    a.addEventListener('click',function(){
+      snapshot();
+      if(location.hash && a.getAttribute('href').indexOf('#')===-1) a.href+=location.hash;
+    });
+  });
+  try{
+    var stored=JSON.parse(sessionStorage.getItem(key)||'null');
+    if(!stored || stored.page!==page || stored.from===language)return;
+    sessionStorage.removeItem(key);
+    [].forEach.call(document.querySelectorAll('details'),function(n,i){n.open=!!stored.details[i]});
+    if(specialMap.length && typeof window.sonrakiDugum==='function'){
+      var active=Math.max(0,Math.min(specialMap.length-1,stored.active||0));
+      for(var j=0;j<active;j++)window.sonrakiDugum();
+      if(stored.stage && typeof window.temsilBaslat==='function')window.temsilBaslat();
+    }
+    window.addEventListener('load',function(){
+      setTimeout(function(){window.scrollTo({left:stored.x||0,top:stored.y||0,behavior:'instant'});},40);
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+
+</html>

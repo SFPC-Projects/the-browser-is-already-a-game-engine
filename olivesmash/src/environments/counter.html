@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            overflow: hidden;
+            perspective: 800px;
+            transform-style: preserve-3d;
+
+        }
+
+
+        #counter-bkg {
+            position: fixed;
+            transform:
+            scale3d(1.6,1.1,1)
+            translate3d(0,0,-200px);
+
+        }
+
+        #counter {
+            position: fixed;
+            transform:
+            scale3d(1.3, 1, 1)
+            translate3d(0,50px,100px);
+
+        }
+
+        #zendaya {
+            position: fixed;
+            transform:
+            translate3d(0,50px,0px);
+
+        }
+
+        button {
+            appearance: none;
+            border: 3px groove crimson;
+            background: yellow;
+            color: blue;
+            cursor: inherit;
+
+        }
+
+
+        #buy-stuff {
+            position: fixed;
+            font-family: cursive;
+
+            transform:
+            translate3d(250px,450px,105px);
+        }
+
+        #dialogdiv {
+            position: fixed;
+            border: groove;
+            border-width: 15px;
+            border-color: indianred;
+            /*
+            background: rgba(0,0,0, 0.5);
+
+             */
+            z-index: 1000;
+        }
+
+        #dialogdiv iframe {
+            border-width: 6px;
+            border-color: indianred;
+            border-style: solid;
+            width:30vmin; height:9vmin;
+        }
+
+
+        #zendaya-area {
+            position: absolute;
+            opacity: 0%;
+            left: 100px;
+            top: -7px;
+            width: 1125px;
+            height: 490px;
+
+            transform:
+            translate3d(0,50px,105px);
+
+
+        }
+
+
+    </style>
+    <meta charset="UTF-8">
+    <title>counter</title>
+</head>
+<body>
+
+<div id = "counter">
+    <img src = "counter_final.png"/>
+
+</div>
+
+<div id = "counter-bkg">
+    <img src="counterbkg_final.png"/>
+
+</div>
+
+<div id="zendaya">
+    <img src = "./secrets/zendaya.png"/>
+
+</div>
+
+<img src = "./secrets/zendaya.png" id = 'zendaya-area'/>
+
+
+<button id = "buy-stuff">Buy stuff</button>
+
+<script type="module">
+    /*
+    leaveBtn.addEventListener("click", () =>
+        window.parent.postMessage({ type: "counter-closed" }, window.location.origin));
+
+     */
+    import { Inventory } from '../../olive-events.js'
+    import { showDialog, dismissDialog } from "../../olive-events.js";
+
+    function random(number) {
+        return Math.floor(Math.random() * number);
+    }
+
+    function randompi(number) {
+        return Math.floor(Math.random() * Math.PI * number)
+    }
+/*
+    document.getElementById('counter-bkg').remove()
+
+ */
+    const zendayaArea = document.getElementById('zendaya-area');
+
+
+    zendayaArea.addEventListener('mousemove', () => {
+        zendayaArea.style.cursor = 'pointer';
+
+    });
+
+    zendayaArea.addEventListener('click', () => {
+        showDialog('neutral');
+
+    });
+
+
+
+    let holding = JSON.parse(sessionStorage.getItem('cart')) ?? []
+    console.log(holding);
+
+    addEventListener("message", (event) => {
+        if (event.data?.type !== "held-item") return;
+        document.body.style.cursor = event.data.img
+            ? `url("${event.data.img}") ${event.data.x} ${event.data.y}, auto`
+            : "";
+    });
+
+    document.getElementById("buy-stuff")
+        .addEventListener("click", () => {
+        const clicksound = document.createElement('audio')
+        clicksound.src = "../sounds/click.mp3"
+        clicksound.play();
+
+        if (holding.length === 0) {
+            showDialog('empty hands')
+
+        }
+
+        else if (holding.length === 1) {
+            const nBought = random(100)
+            const items = ['olives', 'toothpicks']
+            let chose;
+
+            if (holding.includes('OIP')) {
+                const cost = randompi(10)
+                chose = items[0]
+
+                Inventory.refill('olives', nBought)
+                Inventory.payMoney(cost)
+
+            }
+            else {
+                const cost = randompi(2)
+                chose = items[1]
+
+                Inventory.refill('thoothpick', nBought)
+                Inventory.payMoney(cost)
+
+
+            }
+
+            showDialog('customer')
+            window.parent.postMessage(
+                { type:"purchased", data: [nBought], chose },
+                window.location.origin
+            );
+
+            holding = []
+            Inventory.items['cart'] = []
+            sessionStorage.setItem('cart', '[]')
+
+        }
+        else {
+            const cost = randompi(12)
+            const nOlives = random(100)
+            const nThooth = random(100)
+            Inventory.refill('olives', nOlives)
+            Inventory.refill('thoothpick', nThooth)
+
+            Inventory.payMoney(cost)
+
+            holding = []
+            Inventory.items['cart'] = []
+            sessionStorage.setItem('cart', '[]')
+
+            showDialog('customer')
+            window.parent.postMessage(
+                { type:"purchased", data: [nOlives, nThooth] },
+                window.location.origin
+            );
+
+
+        }
+
+    });
+
+    window.addEventListener("message", (event) => {
+        if (event.data?.type === "dialog-closed") dismissDialog();
+    });
+
+
+
+</script>
+</body>
+</html>

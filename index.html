@@ -1,1 +1,631 @@
-<h1>The Browser is Already a Game Engine</h1>
+<!doctype html>
+<style>
+
+body{
+	background-color: black;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	font-family: 'Courier New', monospace;
+	overflow: hidden;
+}
+
+#machine{
+	z-index: 1;
+	position: absolute;
+	top: 0px;
+  	width: 100%;
+  	height: 100%;
+	max-width: 100vw;
+	max-height: 100vh;
+	overflow: hidden;
+	margin: 0 auto 0 auto;
+
+}
+
+#machine img{
+	display: block;
+	margin: auto;
+	max-width: 100%;
+	max-height: 100%;
+    object-fit: contain;
+}
+
+#leftEye{
+	position: absolute;
+	z-index: -100;
+	top: 23.5%;
+  	right: 49.5%;
+  	width: min(8vw,8vh);
+  	height: min(8vw,8vh);
+	background-image: url("right-eye.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	rotate: 0deg;
+}
+
+#rightEye{
+	position: absolute;
+	z-index: -100;
+	top: 23.5%;
+  	left: 50%;
+  	width: min(8vw,8vh);
+  	height: min(8vw,8vh);
+	background-image: url("right-eye.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	rotate: 0deg;
+}
+
+
+#bulbs{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	pointer-events: none;
+}
+
+.bulbContainer {
+	position: absolute;
+	pointer-events: none;
+	z-index: 10;
+	top: 8%;
+}
+
+.bulb {
+	max-width: min(7vw,6vh);
+	pointer-events: all;
+	filter: drop-shadow(0 0 .1rem white);
+}
+
+.bulb:hover, .bulb:active {
+	z-index: 100;
+	filter: drop-shadow(0 0 0.5rem white) contrast(1.1);
+	cursor: pointer;
+	zoom: 1.01;
+}
+
+#wallText{
+	z-index: 20;
+	position: relative;
+	color: white;
+  	transform: translate(-50%, -50%);
+	top: -23%;
+  	left: 50%;
+	width: min(48vw,48vh);
+	height: min(10vw,10vh);
+	font-size: min(2.5vw,2.5vh);
+  	text-align: justify;
+	text-justify: inter-word;
+}
+
+#selectedWords{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	color: white;
+	opacity: 15%;
+	font-size: min(12vw,12vh);
+	text-align: justify;
+  	text-justify: inter-word;
+}
+
+#singleWord{
+	display: none;
+	z-index: 14;
+	position: absolute;
+	color: white;
+	top: 42%;
+  	left: 50%;
+  	transform: translate(-50%, 0);
+	font-size: min(2vw,2vh);
+  	text-align: center;
+  	background-color: black;
+  	padding: 3px;
+}
+
+#singleWord:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-color: #000000 transparent;
+    border-width: 0 0.5vw 2vw;
+    top: -2vw;
+    left: 50%;
+    margin-left: -0.5vw;
+}
+
+#card{
+	display: none;
+	z-index: 20;
+	position: absolute;
+	top: 58%;
+  	left: 50%;
+  	transform: translate(-50%, 0);
+	width: min(10vw,10vh);
+	rotate: 10deg;
+}
+
+#card:hover, #card:active{
+	filter: drop-shadow(0 0 0.5rem white) contrast(1.1);
+	cursor: pointer;
+	rotate: 11deg;
+}
+
+#card img{
+	width: 100%;
+}
+
+#blackScreen{
+	width: 100vw;
+	height:100vh;
+	position: absolute;
+	overflow: hidden;
+	margin: 0 auto 0 auto;
+	max-width: 100%;
+	background-color: black;
+	z-index: 200;
+	opacity: 100%;
+  	transition: opacity 4s;
+  	color: white;
+  	text-align: center;
+	vertical-align: middle;
+	padding-top: 30%;
+	font-size: 1.5em;
+}
+#infoPopUp{
+	width: 50vw;
+	min-width: 350px;
+	max-height: 90vh;
+	padding: 4%;
+	position: absolute;
+	left: 50%;
+  	transform: translate(-50%, 0);
+	background-color: black;
+	z-index: 201;
+  	color: white;
+  	border: 2px double white;
+  	overflow: scroll;
+  	display: none;
+}
+
+.absoluteCenter{
+	position: absolute;
+	left: 48%;
+	top: 10%;
+	transform: translate(-50%, -50%);
+}
+
+#question{
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+	font-size: max(2vw,2vh);
+	color: white;
+	z-index: 20;
+}
+
+#question:hover{
+	cursor: pointer;
+}
+
+#containAll{
+	width: 100vw;
+	height:100vh;
+	position: absolute;
+	overflow: hidden;
+	margin: 0 auto 0 auto;
+	max-width: 100%;
+	z-index: -500;	
+}
+
+@media (max-width: 500px) {
+  body {
+  	padding-top:10vh
+  }
+  #wallText{
+	top: -15%;
+	width: 65vw;
+	font-size: 3.5vw;
+	}
+#question{
+	margin-top: 0px;
+	position: absolute;
+	top: 0px;
+	font-size: 1.5em;
+}
+
+}
+
+a{
+	color: white;
+}
+
+</style>
+
+<html>
+
+	<head>
+
+		<meta charset="UTF-8"> 
+        <title>THE BROWSER SPEAKS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -20 100 100'><text y='.9em' font-size='90'>𓃬</text></svg>">
+
+        <meta name="description" content="THE BROWSER SPEAKS is a webzine of student works, projects and games from The Browser is Already A Game Engine.">
+        <meta name="og:description" content="THE BROWSER SPEAKS is a webzine of student works, projects and games from The Browser is Already A Game Engine.">
+        <meta property="og:title" content="THE BROWSER SPEAKS">
+		 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> 
+		
+	</head>
+
+		
+	<body>
+
+		<div id="infoPopUp">
+							<center><button onclick="closeInfo()">close</button></center>
+
+			<h3>What is this?</h3>
+				<p>Welcome to THE BROWSER SPEAKS, a webzine of <i>The Browser is Already a Game Engine</i>, a SFPC course that ran in the summer of 2026.</p>
+
+				<p>For 10 weeks, me, assistant teacher Tee Topor, and 20-odd students met every Sunday to think about the browser, its particular affordances, and the kinds of games those affordances could support. We focused on existing HTML object model elements, eschewing frameworks, libraries and even the HTML5 canvas.</p>
+
+				<p>Instead, the work that came out of our thinking were games that are also truly websites- driven by hyperlinks or iframes or drop-downs or < details > tags. They are not games that are tricking the browser into <i>acting</i> like a 3d engine (no webGL exports here) but are instead looking at the playful elements already present in the browser and going “ah, yes, this is all we need”. We talked, played, learned, discussed and made all summer, and this is the result of that learning.</p>
+
+				<p>
+				The artists, developers, writers and experimenters in this zine include:
+				<ul>
+				<li><a href="https://coyote.computer/" target="_blank">Helen Shewolfe Tseng</a></li>
+				<li><a href="https://www.symoneperformingartist.com/" target="_blank">Symoné</a></li>
+				<li><a href="https://martymcgui.re/" target="_blank">Marty McGuire</a></li>
+				<li><a href="https://samihaalam.com/" target="_blank">Samiha Alam</a></li>
+				<li><a href="https://quewon.github.io/" target="_blank">Q1</a></li>
+				<li><a href="https://github.com/clara-nolan" target="_blank">Clara Nolan</a></li>
+				<li><a href="olivesmash/index.html" target="_blank">greatboson</a></li>
+				<li><a href="https://www.kurodamanga.com/" target="_blank">Yuna Lee</a></li>
+				<li><a href="https://dorothysantos.com/" target="_blank">Dorothy R. Santos</a></li>
+				<li><a href="http://jonathangray.org/" target="_blank">jonathan w. y. gray</a></li>
+				<li><a href="dreamlog/index.html" target="_blank">Angie Wolfrum</a></li>
+				<li><a href="https://mezrazhang.com/" target="_blank">M. Ezra Zhang</a></li>
+				<li><a href="https://cautioncrow.itch.io/" target="_blank">Theo Unkrich</a></li>
+				<li><a href="https://mxxiu.cargo.site/" target="_blank">Aslı Akın</a></li>
+				and
+				<li><a href="https://cearasonline.neocities.org/" target="_blank">ceara margaret hennessey</a></li>
+				</ul></p>
+
+				<p>Produced with support from <i><a href="https://sfpc.study/" target="_blank">The School for Poetic Computation</a></i> by <a href="https://everest-pipkin.com/" target="_blank">Everest Pipkin</a> with help from <a href="https://teetopor.art/" target="_blank">Tee Topor</a>.</p>
+		</div>
+
+<div id="containAll">
+	<div id="blackScreen" onclick="advanceScreen()">...</div>
+	<div id="bulbs"></div>
+
+	<div id="machine">
+		<img src="lion2.png">
+		<div id="wallText"></div>
+		<div id="leftEye"></div>
+		<div id="rightEye"></div>
+		<div id="singleWord"></div>
+
+	</div>
+	<div id="question" onclick="popUpInfo()">?</div>
+	<div id="selectedWords"></div>
+	<div id="card" class="absoluteCenter" onclick="printFortune()" onmouseover="mouseOverCard()" onmouseOut="mouseOutBulb()"><img src="card-dithered.png"></div>
+</div>
+	</body>
+
+
+</html>
+
+<script>
+
+	let wallTextElement = document.getElementById("wallText");
+	let selectedWordsElement = document.getElementById("selectedWords");
+	let singleWordElement = document.getElementById("singleWord");
+
+	let leftEye = document.getElementById("leftEye");
+	let rightEye = document.getElementById("rightEye");
+
+	let defaultText = "works from <i><u><a onclick=popUpInfo()>the browser is already a game engine</a></u></i> ** sfpc summer 2026 ** <small>taught by everest pipkin with tee topor</small> ** touch a lightbulb to begin";
+	wallText.innerHTML = defaultText;
+	let projectData = [{
+			wallText : "Helen Shewolfe Tseng, The Seeker, browser game, made with HTML, CSS, Javascript, dithered photographs, pixel art, text, field recordings.",
+			link: "https://coyote.computer/seeker/",
+			words : ["sage","eucalyptus","invasive", "chorus", "cypress", 
+				"crow", "looking", "wait", "coyote"],
+			singleWord: ""
+		},
+		{
+			wallText : "Symoné, Time Body, Browser Game, Made with HTML, Javascript, CSS, Approx 5 minutes playtime.",
+			link: "FV/index.html",
+			words : ["imagination", "flesh", "eternity", "folders", "backup", "save", "files", "attic"],
+			singleWord: ""
+		},
+		{
+			wallText : "Marty McGuire, Caturday Eternal, browser game sketch, made with HTML, Javascript, cat video loops, and found news articles.",
+			link: "https://schmarty.net/sfpc/biage2026/caturday-eternal/",
+			words : ["cat", "cute", "distraction", "transmission", "fuzzy", "reveal"],
+			singleWord: ""
+		},	
+		{
+			wallText : "Samiha Alam, nesting, browser game.",
+			link: "https://s4m1h4.neocities.org/nesting/",
+			words : ["growing", "objects", "raincoat", "children", "scarf", "household", "hiding", "diary"],
+			singleWord: ""
+		},	
+		{
+			wallText : "Q1, Asleep in a train, made with HTML, CSS, Javascript and video.",
+			link: "https://quewon.github.io/transit-2026/",
+			words : ["nowhere", "somewhere", "working", "timetable", "snooze", "transit", "forgetting", "ticket"],
+			singleWord: ""
+		},	
+		{
+			wallText : "Clara Nolan, Eat Your Words, browser game sketch, made with HTML, Javascript, and original poetry.",
+			link: "https://kunstpleb.neocities.org/ ",
+			words : ["eating", "words", "sentence", "movement", "expand", "split", "shuffle", "delete", "action"],
+			singleWord: ""
+		},	
+		{
+			wallText : "greatboson, olive smasher, a game about smashing olives, made with GIMP, premiere pro, blender, FLStudio, exclusive songs by hokey and resources from films & the public domain.",
+			link: "olivesmash/index.html",
+			words : ["smash", "olive", "clicker", "zoom", "satisfying", "escape", "tooth", "aisles", "unlocks"],
+			singleWord: ""
+		},
+		{
+			wallText : "Yuna Lee, Am I in love? — Yes, because I’m waiting, browser game, made with HTML, Javascript.",
+			link: "https://waitingfor.website",
+			words : ["gaze", "drifting", "anxiety", "write", "coin", "scroll", "pluck", "break", "fix", "restore", "remember", "tear", "wait"],
+			singleWord: ""
+		},
+		{
+			wallText : "Dorothy R. Santos, Switchblade, browser poem made with HTML and public domain images.",
+			link: "https://cyborgfemme.neocities.org/switchblade",
+			words : ["eyes", "seeing", "chrysalis", "butterfly", "refuge", "holding", "softness", "folds", "pivots", "presence"],
+			singleWord: ""
+		},
+		{
+			wallText : "jonathan w. y. gray, memory unit, browser game sketch, made with html, css, js, and scanned materials from an attic.",
+			link: "https://jwyg.neocities.org/memory-unit/",
+			words : ["futures", "communal", "archive", "recycling", "shift", "memory", "library", "neighbors", "server", "garden", "tea"],
+			singleWord: ""
+		},
+		{
+			wallText : "Angie Wolfrum, dreamlog, made with HTML and Javascript.",
+			link: "dreamlog/index.html",
+			words : ["survival", "workday", "recurring", "dreams", "sleep", "insight", "painting", "marsh", "restless", "birds", "mountains", "sketch"],
+			singleWord: ""
+		},
+		{
+			wallText : "M. Ezra Zhang, CLOUD FOREST, browser game, made with HTML and Javascript.",
+			link: "https://mezrazhang.neocities.org/browsersfpc/ ",
+			words : ["moss", "fog", "sing", "mirror", "cycle", "listen", "mycelium", "spore", "forms"],
+			singleWord: ""
+		},
+		{
+			wallText : "Theo Unkrich, .EXEorcists, browser game sketch and digital memorial, made with HTML and Javascript.",
+			link: "https://exeorcists.neocities.org/",
+			words : ["mystery", "haunting", "guestbook", "FAQ", ".exe", "2003", ".gif", "ghost", "secrets"],
+			singleWord: ""
+		},
+		{
+			wallText : "ceara margaret hennessey, Northstar Business Solutions, browser game made with HTML, Javascript, public domain images.",
+			link: "https://cearasonline.neocities.org/browser_game_engine/northstarbusinesssolutions ",
+			words : ["business", "manager", "stapler", "deborah", "conference", "coffee", "copy", "toner", "bureaucracy", "fetching", "time"],
+			singleWord: ""
+		},
+		{
+			wallText : "Aslı Akın, 15-Day Route (15 Günlük Rota), interactive hypertext poem made with HTML, CSS, JavaScript, fragmented archival poems, found images and GIFs & ASCII art.",
+			link: "GunlukRota/index.html",
+			words : ["walking","journey","shared","fragments","wander","meet","unexpected", "performance", "encounter"],
+			singleWord: ""
+		},
+	]
+
+
+	let fortuneComponents = ["in the place of power: ", "in the place of the future: ", "in the place of the present: ", "in the place of the past: ", "to attract: ", "to exercise caution: ", "to consider in great detail: ", "to explore further: ", "your lucky word is: "]
+
+	let prognosis = ["you are eager", "someone shy", "a bold challenge", "a bubbling personality", "hot!", "ice cold", "romantic <3", "you are driven", "change is coming", "don't wait", "you are trusted", "a steady hand", "a thoughtful viewer"]
+
+	let selectedWords = [];
+
+	let whichRatio = "vh";
+
+	if (window.screen.width > window.screen.height){
+		let whichRatio = "vw";	
+	}
+
+	let numberOfEntries = projectData.length;
+
+	for (x=0;x<numberOfEntries;x++){
+		let bulb = document.createElement('img');
+		let bulbContainer = document.createElement('div');
+
+		bulb.classList.add("bulb")
+		bulbContainer.classList.add("bulbContainer")
+
+		bulb.src= "bulb-off.png";
+
+ 		bulb.addEventListener("mouseover", mouseOverBulb); 
+ 		bulb.addEventListener("mouseout", mouseOutBulb); 
+ 		bulb.addEventListener("click", clickOnBulb); 
+
+ 		bulb.number = x;
+
+		let angle = (360/numberOfEntries)*x;
+		bulbContainer.style.rotate = angle + "deg";
+		bulbContainer.style.paddingBottom = (window.screen.width/28 + window.screen.height/28)/2 + whichRatio; 
+
+		bulbContainer.appendChild(bulb);
+		document.getElementById('bulbs').appendChild(bulbContainer);
+	}
+
+
+function mouseOverCard(){
+	wallTextElement.innerHTML = "<br><center>take card?</center>";
+	singleWordElement.style.display = "block";
+	singleWordElement.innerHTML = '"fortune"';
+}
+
+function mouseOverBulb(){
+	rotateEye();
+	wallTextElement.innerHTML = projectData[this.number].wallText;
+	singleWordElement.style.display = "block";
+	singleWordElement.innerHTML = '"'+ projectData[this.number].singleWord + '"';
+}
+
+function mouseOutBulb(){
+	wallTextElement.innerHTML = defaultText;
+	singleWordElement.style.display = "none";
+	singleWordElement.innerHTML = "";
+}
+
+infoPopUp = document.getElementById("infoPopUp");
+
+function popUpInfo(){
+	infoPopUp.style.display = "block";
+}
+
+function closeInfo(){
+	infoPopUp.style.display = "none";
+}
+
+function clickOnBulb(){
+ 	window.open(projectData[this.number].link); 
+ 	this.src = "bulb-on.png";
+ 	selectedWord = getRandArray(projectData[this.number].words);
+ 	projectData[this.number].singleWord = selectedWord;
+ 	selectedWords[this.number] = selectedWord;
+ 	updateSelectedWords();
+}
+
+let screenstate = 0;
+let blackScreen = document.getElementById("blackScreen");
+
+function advanceScreen(){
+	if (screenstate == 0) {
+		blackScreen.innerHTML = "Your steps echo in a shaded hall..."
+	}
+	if (screenstate == 1) {
+		blackScreen.innerHTML = "You come upon a dusty machine...."
+	}
+	if (screenstate == 2) {
+		blackScreen.style.pointerEvents = "none";
+		blackScreen.innerHTML = "It whirrs into life."
+		blackScreen.style.opacity = "0%";
+		setTimeout(function(){ blackScreen.remove() }, 4000);
+	}
+	
+	screenstate++;
+
+}
+
+function detecDevice() {
+    let device = '';
+
+    if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)) {
+        device = true;
+
+    	blackScreen.innerHTML = "This webzine and its contents will not run correctly on mobile. You can explore anyway, but would be better served by visiting from a computer browser.<br><br>Continue anyway --> "
+
+    } else {
+        device = false;
+    }
+    return device;
+}
+
+detecDevice();
+
+function printFortune(){
+	defaultText = "<br><center><i>good fortune.</i></center>"
+	wallTextElement.innerHTML = defaultText;
+	document.getElementById("card").remove();
+	let fortune = "<img style='position:absolute; top:0; bottom: 0; left: 50%; transform: translateX(-50%); height: 100%; overflow:hidden;' src='blank-card.png'><div style='position:absolute; font-size: 2.25em; padding: 18vw; overflow:hidden; font-family: Courier New, monospace;'><center><b>THE BROWSER SPEAKS</b><br>";
+
+	randomComponents = Math.floor(fortuneComponents.length/2) + Math.floor(Math.random()*fortuneComponents.length/3);
+
+	for (d=0;d<randomComponents;d++){
+		randomAmount = Math.floor(Math.random()*fortuneComponents.length);
+		let selected = fortuneComponents.splice(randomAmount, 1);
+		fortune = fortune + "<br>" + selected + selectedWords.splice(randomAmount, 1);
+	}
+
+	fortune = fortune + "<br><br>our prognosis is ............. <br> " + prognosis[Math.floor(Math.random()*prognosis.length)] + "</center></div>";
+
+	fortune = fortune;
+
+	printWindow(fortune)
+
+}
+
+
+function printWindow(fortune)
+  {
+    printWindow=window.open('','','width=600,height=900');
+    printWindow.document.write(fortune);
+
+    printWindow.focus();
+    printWindow.print(); 
+
+  }
+
+
+
+let leftEyeBox = leftEye.getBoundingClientRect();
+let leftBoxCenter= {
+    x: leftEyeBox.left + leftEyeBox.width/2, 
+    y: leftEyeBox.top + leftEyeBox.height/2
+};
+
+let rightEyeBox = rightEye.getBoundingClientRect();
+let rightBoxCenter= {
+    x: rightEyeBox.left + rightEyeBox.width/2, 
+    y: rightEyeBox.top + rightEyeBox.height/2
+};
+
+function rotateEye(){
+	e= window.event;
+	   let leftAngle = Math.atan2(e.pageX - leftEyeBox.x, - (e.pageY - leftEyeBox.y) )*(180 / Math.PI);
+    leftEye.style.rotate = leftAngle + "deg"; 
+
+    let rightAngle = Math.atan2(e.pageX - rightEyeBox.x, - (e.pageY - rightEyeBox.y) )*(180 / Math.PI);      
+
+    rightEye.style.rotate = rightAngle + "deg";  
+}
+function updateSelectedWords(){
+	selectedWordsElement.innerHTML = "";
+	counter = 0;
+	for (f=0;f<selectedWords.length;f++){
+		if (selectedWords[f] != undefined){
+			selectedWordsElement.innerHTML = document.getElementById("selectedWords").innerHTML + " " + selectedWords[f];
+			counter ++;
+		}
+	}
+	if (counter >= numberOfEntries){
+		defaultText = "there is a whirring, clicking sound from inside the machine.<br><br>a pause, and then it spits out a paper card."
+		document.getElementById("card").style.display = "block";
+		wallTextElement.innerHTML = defaultText;
+	}
+}
+
+function getRandArray(arr){
+	let randomEl = arr[Math.floor(Math.random()*arr.length)]
+	return randomEl; 
+}
+
+</script>

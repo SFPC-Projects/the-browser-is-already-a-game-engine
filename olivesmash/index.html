@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #olive {
+            box-sizing : border-box;
+            position: absolute;
+
+            transform:
+            translate3d(0,0,-600px);
+
+        }
+
+        body {
+            /*randomize sizing on load??*/
+            background-image: url("src/environments/kitchen.png");
+            perspective : 800px;
+            background-size : 130vmin;
+
+        }
+
+        #msgdiv {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            margin-left: 20px;
+            margin-top: 18px;
+            /*
+            align-items: center;
+            justify-content: center;
+
+             */
+            z-index: 999;
+
+        }
+
+        #msgdiv iframe {
+            border-width: medium;
+            border-style: double;
+            border-color: darkgoldenrod;
+            width: 320px;
+            height: 200px;
+        }
+
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+
+        html {
+            overflow:hidden;
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+            scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+
+        }
+        html::-webkit-scrollbar {
+            display: none;  /* Older Safari and Chromium */
+
+        }
+
+        body {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        #toothpick {
+            position: fixed
+
+        }
+
+        #dialogdiv {
+            position:fixed;
+            inset: 0;
+            display: flex;
+            justify-content: right;
+            margin-right:16px;
+            margin-top:20px;
+            /*
+            background: rgba(0,0,0, 0.5);
+
+             */
+            z-index:1000;
+
+        }
+
+        #dialogdiv iframe {
+            border-width: medium;
+            border-style: solid;
+            border-color: darksalmon;
+            width:140vmin; height:80vmin;
+        }
+
+        #go-outside {
+            overflow:hidden;
+            background: gold;
+            font-size: 12vmin;
+            font-style: italic;
+
+            z-index: 998;
+            width: 80vmin;
+            border: 10px solid orange;
+
+            transform:
+                translate3d(400px, 400px, -400px)
+                scale3d(0.8, 0.5, 1);
+
+            animation-duration: 40s;
+            animation-name: rotato;
+            animation-iteration-count: infinite;
+
+
+        }
+
+            #money {
+                overflow: hidden;
+                z-index: 0;
+                transform:
+                        translate3d(800px,-200px, 10px);
+            }
+
+
+
+        @keyframes rotato {
+            from {
+                transform:
+                        translate3d(400px, 400px, -400px)
+                        scale3d(0.8, 0.5, 1)
+                        rotateY(40deg)
+                        rotateX(2deg);
+            }
+
+            to {
+                transform:
+                        translate3d(400px, 400px, -400px)
+                        scale3d(0.8, 0.5, 1)
+                        rotateY(-40deg)
+                        rotateX(0deg);
+            }
+        }
+
+
+    </style>
+
+    <link rel="icon" href="src/olive1.png" />
+
+    <meta charset="UTF-8">
+    <title>olive smasher</title>
+</head>
+<body id = "room">
+
+
+    <iframe
+            id="olive"
+            frameborder=0
+            width = 175vmin
+            height = "100"
+
+
+            src="src/olive-area.html">
+
+            <meta name = "responsive-embedded-sizing" />
+
+    </iframe>
+
+    <div id="counter">
+        <p id="count">
+
+        </p>
+
+    </div>
+
+    <script type = "module">
+
+        import { olives }  from './olive-events.js';
+        import { Mover } from './olive-events.js';
+        import { showMessage, dismissMessage } from './olive-events.js';
+        import { toothpicks, pierced } from './olive-events.js';
+        import { showDialog, dismissDialog } from './olive-events.js';
+        import { Inventory } from './olive-events.js';
+
+        olives.onload();
+        toothpicks.onload();
+        pierced.onload();
+
+        function random(number) {
+            return Math.floor(Math.random() * number);
+        }
+
+
+        let randomsize = 130 - random(90);
+        document.body.style.backgroundSize = randomsize + 'vmin'
+
+
+
+        let firstRefill = true;
+        let oliveExists = true;
+
+        let seshInventory = Inventory;
+        if ( JSON.parse(sessionStorage.getItem('firstRefill')) === false ) {
+            firstRefill = false;
+            toothpicks.toothpickNOOB = false
+
+            seshInventory.onload()
+            seshInventory.reinstateCounts();
+            seshInventory.openRefillpath();
+            seshInventory.showWallet()
+
+            oliveExists = seshInventory.reinstateInv();
+
+        }
+
+        if (oliveExists) {
+            new Mover('#olive')
+
+        }
+
+        const oliveiframe = document.getElementById("olive");
+
+        var domCount = document.querySelector("#count")
+
+        domCount.textContent = `olives smashed: ${olives.netSmashed}`
+        domCount.style.color = 'lightblue'
+        domCount.style.fontSize = '48px'
+        domCount.style.fontStyle='italic'
+        domCount.style.fontWeight = 'bold'
+
+
+        window.addEventListener("message", (event) => {
+            if (event.data.type === "smash" && seshInventory.items['olives'] > 0) {
+                seshInventory.items['olives']--;
+                sessionStorage.setItem('olives', seshInventory.items['olives']);
+                if (seshInventory.items['olives'] <= 0) {
+                    oliveExists = false;
+                    document.querySelector('#olive')?.remove();
+                    showMessage('no olives');
+
+                }
+            }
+
+            if (event.data.type === "smash") {
+                olives.addSmash();
+
+                domCount.textContent= `olives smashed: ${olives.netSmashed}`
+                const squish = document.createElement('audio')
+                squish.setAttribute('src', 'src/sounds/515621__mrickey13__splatsquish-4.wav');
+                squish.autoplay = true;
+                document.body.appendChild(squish);
+                squish.addEventListener('ended', () => squish.remove());
+
+            }
+
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data.type === "reset") {
+                history.back();
+                new Mover("#olive")
+            }
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "toothpick unlocked") {
+                showMessage("toothpick unlocked");
+                toothpicks.deploy(random(15) + 1);
+                /*
+                toothpicks.toothpickNOOB = false;
+
+                 */
+                new Mover("#toothpick", -250);
+
+            }
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "olive-area-ready" && toothpicks.armed) {
+                document.getElementById("olive")?.contentWindow?.postMessage(
+                    { type: "arm-toothpick" }, window.location.origin
+                );
+            }
+        });
+
+        function pierceRandom() {
+            const screamselects = [
+                'src/sounds/439518__volonda__girl_screams_shortened_firstscream.mp3',
+                'src/sounds/morescreams/104039__rutgermuller__scream_owowo-1.aiff',
+                'src/sounds/morescreams/220666__marionagm90__scream.wav',
+                'src/sounds/morescreams/467293__xfixy8__female-scream-2.wav',
+                'src/sounds/morescreams/547964__klangkobold__panic-stricken-screaming-2.wav',
+                'src/sounds/morescreams/697439__nigo13__short-scream-sfx.wav',
+                'src/sounds/morescreams/marc3122__malescreams.mp3',
+                'src/sounds/morescreams/tomscream.mp3'
+            ]
+
+            const stabselects = [
+                'src/sounds/435238__aris621__nasty-knife-stab.wav',
+                'src/sounds/morestabs/artninja__knifestab.mp3',
+                'src/sounds/morestabs/melonsample.mp3',
+                'src/sounds/morestabs/sillygrizzlies__fleshstab1.mp3',
+                'src/sounds/morestabs/sillygrizzlies__fleshstab2.mp3',
+                'src/sounds/morestabs/studiobonk_stabbingflesh.mp3'
+            ]
+
+            let choice1= random(screamselects.length),choice2 = random(stabselects.length)
+            let randomscream = screamselects[choice1], randomstab = stabselects[choice2]
+
+            return {scream: randomscream, stab: randomstab}
+        }
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "pierce") {
+                toothpicks.consume();
+                pierced.addPierce();
+
+                let pierceDOM=document.querySelector('#piercect')
+                if (!pierceDOM) {
+                    pierceDOM = document.createElement('p');
+                    pierceDOM.id = "piercect";
+                    pierceDOM.textContent = `olives stabbed: ${pierced.netPierced}`;
+                    pierceDOM.style.fontSize = '48px';
+                    pierceDOM.style.fontWeight = 'bold';
+                    pierceDOM.style.color = 'darkred';
+                    pierceDOM.style.fontStyle='italic';
+                    document.querySelector('#counter').appendChild(pierceDOM);
+
+
+                }
+                pierceDOM.textContent = `olives stabbed: ${pierced.netPierced}`
+
+                const stab = document.createElement('audio');
+                const scream = document.createElement('audio');
+
+                let pierceNoise = pierceRandom()
+                stab.setAttribute('src', pierceNoise['stab']);
+                scream.setAttribute('src', pierceNoise['scream']);
+
+                stab.autoplay=true
+                scream.autoplay=true;
+                document.body.appendChild(stab);
+                document.body.appendChild(scream);
+                stab.addEventListener('ended', () => stab.remove());
+                scream.addEventListener('ended', () => scream.remove());
+            }
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "massage-closed") dismissMessage();
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "first pierce" && firstRefill) showDialog("first pierce");
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "dialog-closed") dismissDialog();
+        });
+
+        window.addEventListener("message", (event) => {
+            if (event.data?.type === "refill" && firstRefill) {
+                showMessage('refill unlocked');
+                document.querySelector("#olive").remove();
+
+                seshInventory.openRefillpath()
+
+                seshInventory.items['olives'] = 0
+                seshInventory.items['thoothpick'] = toothpicks.stock
+                seshInventory.items['money'] = 0
+
+                seshInventory.saveProgress();
+
+                }
+
+        });
+
+        window.addEventListener('pagehide', () => {
+            Inventory.saveProgress();
+        })
+
+
+
+    </script>
+
+</body>
+</html>

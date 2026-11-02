@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>dreamlog</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap" rel="stylesheet">  
+<style>
+
+
+a:hover {
+  background-color: #D9910D;
+  font-size: 15px;
+  color: #734814;
+}
+
+a:link {
+  color: #7D3C04;
+}
+
+a:visited {
+  color: #7D3C04;
+}
+
+.button-54 {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #D97E7E;
+  color: #404040;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-54 {
+    padding: 0.25em 0.75em;
+  }
+}
+
+.button-55 {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #F2F1E9;
+  color: #D9910D;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-55:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-55 {
+    padding: 0.25em 0.75em;
+  }
+}
+
+.button-58 {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #F2F1E9;
+  color: #5A8C2A;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-58:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-58 {
+    padding: 0.25em 0.75em;
+  }
+}
+
+
+.button-59 {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #F2F1E9;
+  color: #5A8C2A;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-59:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-59 {
+    padding: 0.25em 0.75em;
+  }
+}
+
+.wrapper {
+  padding: 50px;
+  background-color: #303030;
+  color: whitesmoke;
+ 
+}
+
+
+
+
+.asleeplayout {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2px;
+   background-color: #FCFCFB;
+ color: #303030;
+ font-family: "Geist Pixel", monospace;
+  font-optical-sizing: auto;
+  font-size: 14px;
+  font-style: normal;
+  font-variation-settings:
+    "ELSH" 0;
+  
+}
+
+
+.awakelayout {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2px;
+  background-color: #FCFCFB;
+ color: #303030;
+ font-family: "Geist Pixel", monospace;
+  font-optical-sizing: auto;
+  font-size: 14px;
+  font-style: normal;
+  font-variation-settings:
+    "ELSH" 0;
+}
+
+
+
+
+.div2 {
+  height: 100%;
+width: 100%;
+
+   margin-right: auto;
+    margin-left: auto;
+   
+}
+
+
+
+.div4 {
+  height: 100%;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  text-align:center;
+        
+}
+
+
+
+
+
+.div8 {
+ 
+   margin-right: auto;
+    margin-left: auto;
+      text-align:center;
+        
+}
+
+
+
+#dreamscape-pond{
+  margin-right: auto;
+    margin-left: auto;
+      text-align:center;
+
+}
+
+
+
+#dreamscape-mountain{
+
+}
+
+#dreamscape-bird{
+
+}
+
+
+#mountain {
+  
+   margin-right: auto;
+    margin-left: auto;
+  
+        
+}
+
+
+#pond {
+ 
+ 
+   margin-right: auto;
+    margin-left: auto;
+      text-align:center;
+        
+}
+
+#bird {
+  height: 100%;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  text-align:center;
+        
+}
+
+
+
+
+.awaketextbox {
+  align-content: center;
+}
+
+.gotosleeptextbox {
+  align-content: center;
+}
+
+.textbox {
+  align-content: center;
+}
+
+#start-page {
+    display: grid;
+}
+
+#awake-page,
+#dreamscape-page,
+#mountain-page,
+#bird-page,
+#pond-page,
+#choice-page,
+#end1-page,
+#end2-page,
+#dreamlog-page {
+    display: none;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<div id= "start-page">
+  <div class="wrapper">
+    ⋆｡ ﾟ☁︎｡ ⋆｡ ﾟ☀︎｡ ⋆｡ ﾟ
+    <section class="awakelayout">
+
+      <div class="div1" style="color: #404040">
+         
+           
+      </div>
+
+      <div class="div2">   
+          
+      </div>
+      
+      <div class="div3">
+        
+      
+      </div>
+
+      <div class="div4">
+        
+      </div>
+
+      <div class="div5">
+         
+
+         <div style="display:block;overflow:scroll; height: 200px; width: 80%; margin: 10px;">you keep having this recurring dream. it's been keeping you up at night.
+        <br><br>
+        now it's time to go to work.
+        <br><br>
+          <a href="#" onclick="showPage('awake-page'); return false;">>>></a>   
+         </div>
+      </div>
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+          
+
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div>  
+
+
+<div id= "choice-page">
+  <div class="wrapper">
+    ⋆｡ ﾟ☁︎｡ ⋆｡ ﾟ☀︎｡ ⋆｡ ﾟ
+    <section class="awakelayout">
+
+      <div class="div1" style="color: #404040">
+         <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 50%;">
+          <strong>you're still awake</strong>
+        </div>  
+           
+      </div>
+
+      <div class="div2">   
+          
+      </div>
+      
+      <div class="div3">
+        
+      
+      </div>
+
+      <div class="div4">
+        
+      </div>
+
+      <div class="div5">
+         
+
+         <div style="display:block;overflow:scroll; height: 200px; width: 80%; margin: 10px;">
+          before turning out your light, you see the stack of art supplies in the corner of your room, hidden under your desk. 
+          <br><br>
+          <a href="#" onclick="showPage('end1-page'); return false;">get out your pens and sketch before bed.</a>
+          <br><br>or<br><br>
+          <a href="#" onclick="showPage('end2-page'); return false;">turn out your light and go to sleep.</a>   
+         </div>
+      </div>
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+          
+
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div> 
+
+<div id= "end1-page">
+  <div class="wrapper">
+    ⋆｡ ﾟ☁︎｡ ⋆｡ ﾟ☀︎｡ ⋆｡ ﾟ
+    <section class="awakelayout">
+
+      <div class="div1">
+         
+        </div>  
+               
+
+      <div class="div2">   
+          
+      </div>
+      
+      <div class="div3">
+        
+      
+      </div>
+
+      <div class="div4">
+        
+      </div>
+
+      <div class="div5">
+         
+        <button class="button-58" role="button" type="button" onClick="makeTheFirstChoice()" id= "endChoice1Button">.  .  .</button>
+         <div id="end1textbox" style="display:block;overflow:scroll; height: 200px; width: 80%; margin: 10px;">
+         
+         </div>
+      </div>
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+          
+
+      </div>
+      
+      <div class="div9">
+        <p style="color: #FCFCFB">choices made<a id="numberOfChoice1Clicks">0</a></p>
+      </div>
+
+
+    </section>
+  </div> 
+</div> 
+
+
+<div id= "end2-page">
+  <div class="wrapper">
+    ⋆｡ ﾟ☁︎｡ ⋆｡ ﾟ☀︎｡ ⋆｡ ﾟ
+    <section class="awakelayout">
+
+      <div class="div1">
+         
+        </div>  
+           
+      
+
+      <div class="div2">   
+          
+      </div>
+      
+      <div class="div3">
+        
+      
+      </div>
+
+      <div class="div4">
+        
+      </div>
+
+      <div class="div5">
+         
+        <button class="button-59" role="button" type="button" onClick="makeTheSecondChoice()" id= "endChoice2Button">.  .  .</button>
+         <div id="end2textbox" style="display:block;overflow:scroll; height: 200px; width: 80%; margin: 10px;">
+           
+         </div>
+      </div>
+
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+          
+
+      </div>
+      
+      <div class="div9">
+        <p style="color: #FCFCFB">choices made<a id="numberOfChoice2Clicks">0</a></p>
+      </div>
+
+
+    </section>
+  </div> 
+</div> 
+
+
+
+<div id= "awake-page">
+  <div class="wrapper">
+    ⋆｡ ﾟ☁︎｡ ⋆｡ ﾟ☀︎｡ ⋆｡ ﾟ
+    <section class="awakelayout">
+
+      <div class="div1" style="color: #404040">
+         <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 80%;">
+            <strong>you're awake</strong>
+            <p>moments passing: <a id="workdaySurvivalNumber">0</a></p>
+            <p>number of workdays survived: <a id="numberOfWorkdaysSurvived">0</a></p>
+            <p>nights of recurring dreams: <a id="numberOfDreamNights">0</a></p>
+
+          </div> 
+      </div>
+
+      <div class="div2">   
+
+      
+      </div>
+      
+      <div class="div3">
+        <div class="gotosleeptextbox" id="gotosleeptextbox" style="display:block;overflow:hidden; width: 40%; margin: 10px;"> 
+         </div>
+      
+      </div>
+
+      <div class="div4">
+        
+      
+          </div>
+  
+
+      <div class="div5">
+         &nbsp<button class="button-54" role="button" type="button" onClick="surviveWorkDay()" id= "surviveWorkDayButton">survive work day</button>
+
+
+         <div class="awaketextbox" id="awaketextbox" style="display:block;overflow:scroll; height: 200px; width: 80%; margin: 10px;">9:03 am: you get to work.  
+         </div>
+      </div>
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+          
+
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div>
+
+
+<div id= "dreamscape-page">
+  <div class="wrapper">
+    ✴₊˚.⋆☾⋆⁺₊✧
+    <section class="asleeplayout">
+
+      <div class="div1">
+        <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 50%;">
+          <strong>you're asleep</strong>
+        </div>  
+      </div>
+      <div class="div2">
+          <p id="dreamscape-mountain" style="margin-top: 10px; font-family: monospace;">   
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*.-==::/=-.
+            <br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:::::::-------===
+            <br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.........`=--=-.......*
+            <br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-=================.==++++*+** &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.-==::/=-.
+            <br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-...=+++=++-\\.///.*.....#%%=--=-. &nbsp&nbsp+++:-. .-==::/=
+            <br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.......##############<a href="#" onclick="showPage('mountain-page'); hideMountainDreamElement(); return false; ">#</a>............#######...--.=+=++=---::::
+            <br>
+            &nbsp&nbsp&nbsp&nbsp**#####******++++=========.......++++:-. .-==::/=-.####.--.=+=++=
+            <br>
+            &nbsp&nbsp.*.......####++=++-\\.///.*..**+=----:::::**+=---:::--===++++++//.*..*
+            <br>
+            &nbsp.*....:-:::/####.....#####..   //...\:...=====+++*++*****++=======++++*+**
+            <br>  
+            
+            </p> 
+      </div>
+      <div class="div3">
+        
+      </div>
+
+      <div class="div4">
+         
+      </div>
+
+      <div class="div5">
+        <div id="dreamscapetextbox" style="width: 80%; height: 65%"> 
+         
+        </div>
+      </div>
+
+      <div class="div6">
+     <p id="dreamscape-bird" style="font-family: monospace;">&nbsp&nbsp&nbsp&nbsp==<a href="#" onclick="showPage('bird-page'); hideBirdDreamElement(); return false;">=</a>=-.
+              <br>
+        &nbsp&nbsp&nbsp&nbsp===
+              <br>
+        &nbsp&nbsp//****
+            <br>
+        &nbsp&nbsp/****
+            <br>
+        //+++
+        <br>
+        #########
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               # 
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               # 
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               #
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               #
+      </p>
+      
+
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+        <p id="dreamscape-pond" style="font-family: monospace;">
+            +*+*+*+*+*+*+*+*+*+*+*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~<a href="#" onclick="showPage('pond-page'); hidePondDreamElement();return false;">@</a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+            <br>
+            +*+*+*+*+*+*+*+*+*+*+*+
+            <br>
+            <br>
+        </p>
+        </div> 
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+    </section>
+  </div> 
+</div>
+
+<div id= "mountain-page">
+  <div class="wrapper">
+    ✴₊˚.⋆☾⋆⁺₊✧
+    <section class="asleeplayout">
+
+       <div class="div1">
+          <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 70%;">
+            <strong>you're asleep</strong>
+            <div><p>number of dream insights: <a id="numberOfMountainDreamInsights">0</a></p></div>
+          </div>
+          
+      </div>
+
+      <div class="div2"> 
+        <div class="mountaindreamelementtextbox" id="mountaindreamelementtextbox" style="display:block;overflow:scroll;height: 100px; width: 80%; margin-top: 20px; padding: 15px;"> 
+            you move closer to get a better view of the mountains.
+            <br><br>
+            trying looking around. 
+          </div>
+  
+          </div>
+      
+      
+      <div class="div3">
+        <div class="mountainwakeuptextbox" id="mountainwakeuptextbox" style="display:block;overflow:hidden; width: 40%; margin: 10px; padding: 15px;"> 
+          </div>
+      </div>
+
+      <div class="div4">
+        
+    
+      </div>
+
+      <div class="div5">
+        
+          <div style="height: 150px; font-family: monospace;" >   
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp*.-=<a href="#" onclick="excavateMountainDream(); remove(this); return false;">=</a>::/=-.
+        <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:::<a href="#" onclick="excavateMountainDream(); remove(this); return false;">:</a>:::-------===
+        <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.........`=--=-.......*
+        <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-<a href="#" onclick="excavateMountainDream(); remove(this); return false;">=</a>================.==++++*+** &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.-==::/=-<a href="#" onclick="excavateMountainDream(); remove(this); return false;">.</a>
+        <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-...=+++=++-\\.///.*.....#%%=--=-. &nbsp&nbsp+++:-. .-==::/=
+        <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.......##############<a href="#" onclick="excavateMountainDream(); remove(this); return false;">#</a>............#######...--.=+=++=---::::
+        <br>
+        &nbsp&nbsp&nbsp&nbsp**#####******++++=========.......++++:-. .-==::/=-.####.--.=+=++=
+        <br>
+        &nbsp&nbsp.*.......####++=++-\\.///.<a href="#" onclick="excavateMountainDream(); remove(this); return false;">*</a>..**+=----:::::**+=---:::--===++++++//.*..*
+        <br>
+        &nbsp.*....:-:::/####.....#####..   //...\:...=====+++*++<a href="#" onclick="excavateMountainDream(); remove(this); return false;">*</a>****++=======++<a href="#" onclick="excavateMountainDream(); remove(this); return false;">+</a>+*+**
+        <br> 
+      </div>  
+      </div>
+
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7" style="height: 0px">
+        
+      </div>
+
+      <div class="div8" style="height: 0px">
+        
+      </div>
+      
+      <div class="div9" style="height: 0px">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div>
+
+<div id= "bird-page">
+  <div class="wrapper">
+    ✴₊˚.⋆☾⋆⁺₊✧
+    <section class="asleeplayout">
+
+      <div class="div1">
+          <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 70%;">
+            <strong>you're asleep</strong>
+            <p>number of dream insights: <a id="numberOfBirdDreamInsights">0</a></p>
+          </div>
+          
+      </div>
+
+      <div class="div2">   
+          <div class="birddreamelementtextbox" id="birddreamelementtextbox" style="display:block;overflow:scroll; height: 150px; width: 80%; margin: 10px; padding: 15px;"> 
+            you move closer to a red-winged black bird perched on a fence post. 
+            <br><br>
+            try looking around.
+          </div>
+      </div>
+      
+      <div class="div3">
+        <div class="birdwakeuptextbox" id="birdwakeuptextbox" style="display:block;overflow:hidden; width: 80%; margin: 10px; padding: 10px;"> 
+          </div>
+      </div>
+
+      <div class="div4">
+      
+        
+      </div>
+
+      <div class="div5">
+        <div id="bird" style="text-align: center; font-family: monospace;"> &nbsp&nbsp&nbsp&nbsp==<a href="#" onclick="excavateBirdDream(); remove(this); return false;">=</a>==-.
+              <br>
+        &nbsp&nbsp&nbsp&nbsp===
+              <br>
+        &nbsp&nbsp//****
+            <br>
+        &nbsp&nbsp/**<a href="#" onclick="excavateBirdDream(); remove(this); return false;">*</a>*
+            <br>
+        <a href="#" onclick="excavateBirdDream(); remove(this); return false;">/</a>/+++
+        <br>
+        ########<a href="#" onclick="excavateBirdDream(); remove(this); return false;">#</a>
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               # 
+        <br>
+        <a href="#" onclick="excavateBirdDream(); remove(this); return false;">#</a>&nbsp&nbsp&nbsp&nbsp               # 
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               <a href="#" onclick="excavateBirdDream(); remove(this); return false;">#</a>
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               #
+        <br>
+        #&nbsp&nbsp&nbsp&nbsp               <a href="#" onclick="excavateBirdDream(); remove(this); return false;">#</a>
+       </div>
+      </div>
+
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+        
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div>
+
+<div id= "pond-page">
+  <div class="wrapper">
+    ✴₊˚.⋆☾⋆⁺₊✧
+    <section class="asleeplayout">
+
+      <div class="div1">
+          <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 70%;">
+            <strong>you're asleep</strong>
+            <p>number of dream insights: <a id="numberOfPondDreamInsights">0</a></p>
+
+          </div>
+      </div>
+      
+      
+
+      <div class="div2">   
+          <div class="ponddreamelementtextbox" id="ponddreamelementtextbox" style="display:block;overflow:scroll;height: 100px; width: 80%; margin-top: 20px; padding: 15px;"> 
+            you move closer to the edge of the pond.
+            <br><br>
+            trying looking around. 
+          </div>
+      </div>
+      
+      <div class="div3">
+        <div class="pondwakeuptextbox" id="pondwakeuptextbox" style="display:block;overflow:hidden; width: 40%; margin: 10px; padding: 15px;"> 
+          </div>
+      </div>
+
+      <div class="div4">
+         
+    </div>
+
+      <div class="div5">
+        <div id="pond" style="text-align: center; margin: auto; font-family: monospace;">
+       +*+*+*+*+*+*+*+*+*+*+*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~*+
+        <br>
+        +*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*+
+        <br>
+        +*~~~~~~~~~~~~~<a href="#" onclick="excavatePondDream(); remove(this); return false;">@</a>~~~~~~~~~~~~~~~*+
+        <br>
+        +*+*+*+*+*+*+*+*+*+*+*+
+
+        </div>
+      </div>
+      </section>
+ </div>
+</div>
+
+
+      <div class="div6">
+        
+          </div>
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+        
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div>
+
+<div id= "dreamlog-page">
+  <div class="wrapper">
+    ☾𖤓
+    <section class="awakelayout">
+
+      <div class="div1">
+          <div style="margin: 10px; padding: 10px; border: 1px dashed black; width: 60%;">
+            <strong>you're half awake, half asleep</strong>
+            <p>number of reflections: <a id="dreamLogNumber">0</a></p>
+
+          </div>
+      </div>
+
+      <div class="div2">   
+
+      </div>
+      
+      <div class="div3">
+        <div class="gotoworktextbox" id="gotoworktextbox" style="display:block;overflow:hidden; width: 80%; margin: 10px; padding: 15px;"> 
+        </div>
+      </div>
+
+      <div class="div4">
+        
+      </div>
+
+      <div class="div5">
+        &nbsp<button class="button-55" role="button" type="button" onClick="logDream()" id= "logDreamButton">log your dream</button>
+
+        <div class="dreamlogtextbox" id="dreamlogtextbox" style="display:block;overflow:scroll;  height: 150px; width: 80%; margin: 10px; padding: 15px;">  
+         </div>
+      </div>
+
+      <div class="div6">
+          
+      </div>
+
+      <div class="div7">
+        
+      </div>
+
+      <div class="div8">
+        
+      </div>
+      
+      <div class="div9">
+        
+      </div>
+
+
+    </section>
+  </div> 
+</div>
+
+</body>
+<script>
+  
+
+//to remove any dream element when we're done dreaming it/excavating it
+
+function remove(el) {
+  var element = el;
+  element.remove();
+}
+
+
+let changePageButton = document.getElementById("changePageButton");
+
+
+
+function showPage(pageName) 
+
+{
+    document.getElementById("start-page").style.display = "none";
+    document.getElementById("awake-page").style.display = "none";
+    document.getElementById("dreamscape-page").style.display = "none";
+    document.getElementById("mountain-page").style.display = "none";
+    document.getElementById("bird-page").style.display = "none";
+    document.getElementById("pond-page").style.display = "none";
+    document.getElementById("dreamlog-page").style.display = "none";
+    document.getElementById("choice-page").style.display = "none";
+    document.getElementById("end1-page").style.display = "none";
+    document.getElementById("end2-page").style.display = "none";
+
+    document.getElementById(pageName).style.display = "grid";
+}
+
+
+
+function hidePondDreamElement() {
+  const element = document.getElementById("dreamscape-pond");
+  element.remove();
+}
+
+function hideBirdDreamElement() {
+  const element = document.getElementById("dreamscape-bird");
+  element.remove();
+}
+
+function hideMountainDreamElement() {
+  const element = document.getElementById("dreamscape-mountain");
+  element.remove();
+}
+
+let end1textbox = document.getElementById("end1textbox");
+
+var numberOfChoice1Clicks = 0;
+
+let endChoice1Button = document.getElementById("endChoice1Button");
+
+function makeTheFirstChoice(){
+
+  
+
+    if (numberOfChoice1Clicks < 1)
+     {
+    
+      end1textbox.innerHTML = "you stay up late sketching and get your paints out of your closet. <br><br>" + end1textbox.innerHTML
+    }
+
+    else if (numberOfChoice1Clicks == 1){
+      end1textbox.innerHTML = "your hand is sore. <br><br>" + end1textbox.innerHTML
+
+    }
+
+
+    else if (numberOfChoice1Clicks == 2){
+      end1textbox.innerHTML = "you sleep a full night and don't remember your dreams. <br><br>" + end1textbox.innerHTML
+    }
+
+    else {
+
+      end1textbox.innerHTML = "<i>end</i><br><br>" + end1textbox.innerHTML
+
+    }
+
+    numberOfChoice1Clicks += 1;
+    document.getElementById("numberOfChoice1Clicks").innerHTML = numberOfChoice1Clicks;
+}
+
+let end2textbox = document.getElementById("end2textbox");
+
+let numberOfChoice2Clicks = 0;
+
+let endChoice2Button = document.getElementById("endChoice2Button");
+
+function makeTheSecondChoice(){
+
+
+
+        if (numberOfChoice2Clicks < 1)
+     {
+    
+      end2textbox.innerHTML = "you fall asleep hard and miss your alarm.<br><br>" + end2textbox.innerHTML
+    }
+
+    else if (numberOfChoice2Clicks == 1){
+      end2textbox.innerHTML = "when you wake up, you call out 'sick.'<br><br>" + end2textbox.innerHTML
+
+    }
+
+
+    else if (numberOfChoice2Clicks == 2){
+      end2textbox.innerHTML = "you pack your sketchbook and pens and go out for a long, long walk at the park. <br><br>" + end2textbox.innerHTML
+
+    }
+
+    else {
+
+      end2textbox.innerHTML = "<i>end</i><br><br>" + end2textbox.innerHTML
+
+    }
+
+    numberOfChoice2Clicks += 1;
+    document.getElementById("numberOfChoice2Clicks").innerHTML = numberOfChoice2Clicks;
+}
+
+
+
+
+
+
+
+let surviveWorkDayButton = document.getElementById("surviveWorkDayButton");
+
+let gotosleeptextbox = document.getElementById("gotosleeptextbox");
+
+let awaketextbox = document.getElementById("awaketextbox");
+
+var numberOfWorkdaysSurvived = 0;
+
+let workdaySurvivalNumber = 0; 
+
+//this is the function that is attached to our "surviveWorkDayButton" element. when we click it, it calls this function!
+function surviveWorkDay(){
+
+    
+
+
+    workdaySurvivalNumber += 1;
+    document.getElementById("workdaySurvivalNumber").innerHTML = workdaySurvivalNumber;
+
+
+
+  if (workdaySurvivalNumber <= 1){
+      
+
+      awaketextbox.innerHTML = "9:10 am: you sit down at your desk. <br><br>" + awaketextbox.innerHTML
+    }
+
+
+
+  else if (workdaySurvivalNumber == 2){
+        if (numberOfDreamNights == 1) {
+          awaketextbox.innerHTML = "9:15 am: you try to open your email but get stuck in a multi-factor authentication loop. <br><br>" + awaketextbox.innerHTML
+        }
+
+       else if (numberOfDreamNights == 2) {
+          awaketextbox.innerHTML = "9:17 am: you open up your email. there’s a backlog. you rub your thumb, sore with arthritis. <br><br>" + awaketextbox.innerHTML
+        }
+       else if (numberOfDreamNights == 3) {
+          awaketextbox.innerHTML = "9:11 am: you open up your email and start working through the backlog. <i>“so sorry for the delay…”</i> <br><br>" + awaketextbox.innerHTML
+        }
+//else here means "on the first day" aka day 0
+        else {
+          awaketextbox.innerHTML = "9:11 am: you open up your email. <br><br>" + awaketextbox.innerHTML
+        }
+        
+    }
+
+  else if (workdaySurvivalNumber == 3){
+       
+
+        if (numberOfDreamNights == 1) {
+          
+            if (currentDream === "pondDream") {
+
+              awaketextbox.innerHTML = "10:45 am: your mind drifts to your dream, standing at the edge of the pond. you think about that fear, of seeing yourself in the pond, of seeing yourself reflected in your art. but you don't paint anymore, so there's nothing to fear...?! <br><br>" + awaketextbox.innerHTML
+
+            }
+
+           else if (currentDream === "mountainDream") {
+              awaketextbox.innerHTML = "10:12 am: you remember that stuck feeling from your dream. you think of that meme a friend sent, “the agony of working on your art vs the agony of <i>not</i> working on your art...” <br><br>" + awaketextbox.innerHTML
+//meme credit to Yumi Sakugawa!
+            }
+
+           else if (currentDream === "birdDream") {
+              awaketextbox.innerHTML = "10:59 am: you think about how you tried to get good sleep but dreamt about a dead bird instead. you used to bring your sketchbook out on long birding walks.  <br><br>" + awaketextbox.innerHTML
+            }
+
+           }
+
+       else if (numberOfDreamNights == 2) {
+          
+
+          if (currentDream === "pondDream") {
+
+              awaketextbox.innerHTML = "10:45 am: your mind drifts to your dream, standing at the edge of the pond. you think about that fear, of seeing yourself in the pond, of seeing yourself reflected in your art. but you don't paint anymore, so there's nothing to fear...?! <br><br>" + awaketextbox.innerHTML
+
+            }
+
+           else if (currentDream === "mountainDream") {
+              awaketextbox.innerHTML = "10:12 am: you remember that stuck feeling from your dream. you think of that meme a friend sent, “the agony of working on your art vs the agony of <i>not</i> working on your art...” <br><br>" + awaketextbox.innerHTML
+//meme credit to Yumi Sakugawa!
+            }
+
+           else if (currentDream === "birdDream") {
+              awaketextbox.innerHTML = "10:59 am: you think about how you tried to get good sleep but dreamt about a dead bird instead. <br><br>you remember how you used to bring your sketchbook out on long birding walks.  <br><br>" + awaketextbox.innerHTML
+            }
+
+
+        }
+      else if (numberOfDreamNights == 3) {
+          
+          if (currentDream === "pondDream") {
+
+              awaketextbox.innerHTML = "10:45 am: your mind drifts to your dream, standing at the edge of the pond. you think about that fear, of seeing yourself in the pond, of seeing yourself reflected in your art. but you don't paint anymore, so there's nothing to fear...?!  <br><br>" + awaketextbox.innerHTML
+
+            }
+
+            else if (currentDream === "mountainDream") {
+              awaketextbox.innerHTML = "10:12 am: you remember that stuck feeling from your dream. you think of that meme a friend sent, “the agony of working on your art vs the agony of <i>not</i> working on your art...” <br><br>" + awaketextbox.innerHTML
+//meme credit to Yumi Sakugawa!
+            }
+
+           else if (currentDream === "birdDream") {
+              awaketextbox.innerHTML = "10:59 am: you think about how you tried to get good sleep but dreamt about a dead bird instead. <br><br>you remember how you used to bring your sketchbook out on long birding walks.  <br><br>" + awaketextbox.innerHTML
+            }
+
+        }
+//else here means "on the first day" aka day 0
+        else {
+          awaketextbox.innerHTML = "10:01 am: you put your head in your hands and rub your eyes. you’ve been having this weird recurring dream and haven’t slept well. <br><br>" + awaketextbox.innerHTML
+        }
+
+  }
+
+     else if (workdaySurvivalNumber == 4){
+
+          if (numberOfDreamNights == 1) {
+          awaketextbox.innerHTML = "11:04 am: you take a big gulp of your coffee and it spills on your keyboard. shit.  <br><br>" + awaketextbox.innerHTML
+        }
+
+         else if (numberOfDreamNights == 2) {
+          awaketextbox.innerHTML = "11:17 am: you brew herbal tea instead of coffee, maybe that will help with the dreams? you take a sip. it doesn’t hit the spot.  <br><br>" + awaketextbox.innerHTML
+        }
+         else if (numberOfDreamNights == 3) {
+          awaketextbox.innerHTML = "11:02 am: you’re back to coffee. you take 3 big gulps. <br><br>" + awaketextbox.innerHTML
+        }
+//else here means "on the first day" aka day 0
+        else {
+          awaketextbox.innerHTML = "11:01 am: you take a sip of your coffee <br><br>" + awaketextbox.innerHTML
+        }
+    }
+
+    else if (workdaySurvivalNumber == 5){
+      if (numberOfDreamNights == 1) {
+          awaketextbox.innerHTML = "1:45 pm: your coworker notices you idly doodling on the coffee stained napkin in a meeting.  <br><br>" + awaketextbox.innerHTML
+        }
+
+        else if (numberOfDreamNights == 2) {
+          awaketextbox.innerHTML = "1:30 pm: you go on a walk with a coworker. you talk about art making, and work, and shuffling around all the puzzle pieces; how it all fits and doesn’t fit together.  <br><br>" + awaketextbox.innerHTML
+        }
+        else if (numberOfDreamNights == 3) {
+          awaketextbox.innerHTML = "1:33 pm: you think about choices, and non-choices, and how it can be hard to tell the difference. <br><br>" + awaketextbox.innerHTML
+        }
+//else here means "on the first day" aka day 0
+        else {
+          awaketextbox.innerHTML = "1:59 pm: you shuffle through your backpack for a snack and your sketching pens fall out. haven’t seen those in a while. <br><br>" + awaketextbox.innerHTML
+        }
+
+
+    }
+
+
+    else if (workdaySurvivalNumber == 6){
+
+//this first part adds up a workday survived everytime they get to 6 clicks
+      numberOfWorkdaysSurvived += 1;
+            document.getElementById("numberOfWorkdaysSurvived").innerHTML = numberOfWorkdaysSurvived;
+
+        if (numberOfDreamNights == 1) {
+          awaketextbox.innerHTML = "4:59 pm: you head home for the day and stop at the park to wander around on your way home. <br><br>" + awaketextbox.innerHTML;
+
+        }
+
+       else if (numberOfDreamNights == 2) {
+          awaketextbox.innerHTML = "5:01 pm: you twirl your sketching pen in your hand, then rub your thumb, sore with arthritis. time to head home.  <br><br>" + awaketextbox.innerHTML;
+        
+        }
+
+         
+      else  if (numberOfDreamNights == 3) {
+          awaketextbox.innerHTML = "4:57 pm: you’re tired. time to head home. maybe you’ll actually get some sleep tonight.  <br><br>" + awaketextbox.innerHTML;
+           
+        }
+//else here means "on the first day" aka day 0
+        else {
+          awaketextbox.innerHTML = "5:00 pm: the day buzzed by and you head home. you hope you can get some sleep tonight. <br><br>" + awaketextbox.innerHTML;
+           
+        }
+
+
+    }
+
+    else if (numberOfWorkdaysSurvived == 4) {
+      gotosleeptextbox.innerHTML = '<a href="#" onclick=showPage(\'choice-page\'); dreamPrompt(); return false;">Go to sleep >>></a> '
+
+    }
+
+    else {
+      
+
+      awaketextbox.innerHTML = "- - - - - <br>it's time to go to sleep.<br>- - - - - <br><br>" + awaketextbox.innerHTML
+      gotosleeptextbox.innerHTML = '<a href="#" onclick="workdaySurvivalNumber=0;showPage(\'dreamscape-page\'); dreamPrompt(); return false;">Go to sleep >>></a> '
+
+    } 
+}
+
+
+
+//Pond functions: 
+
+var pondDreamComplete = false
+
+var mountainDreamComplete = false
+
+var birdDreamComplete = false
+
+//if this doesn't work, try var?
+let numberOfDreamNights = 0
+
+
+
+let excavatePondButton = document.getElementById("excavatePondButton");
+
+let pondwakeuptextbox = document.getElementById("pondwakeuptextbox");
+
+let ponddreamelementtextbox = document.getElementById("ponddreamelementtextbox");
+
+//keeping track of the number of times we've excavated dream material in order to change what we display on button press  
+var numberOfPondDreamInsights = 0;
+
+function excavatePondDream(){
+    
+
+    numberOfPondDreamInsights += 1;
+    document.getElementById("numberOfPondDreamInsights").innerHTML = numberOfPondDreamInsights;
+
+
+    if (numberOfPondDreamInsights <= 1){
+       
+           ponddreamelementtextbox.innerHTML = "swaying cattails <br><br>" + ponddreamelementtextbox.innerHTML
+
+    }
+
+    else if (numberOfPondDreamInsights == 2){
+      ponddreamelementtextbox.innerHTML = "ears ringing <br><br>" + ponddreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfPondDreamInsights == 3){
+      ponddreamelementtextbox.innerHTML = "marshy edge <br><br>" + ponddreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfPondDreamInsights == 4){
+      ponddreamelementtextbox.innerHTML = "muddy hands <br><br>" + ponddreamelementtextbox.innerHTML 
+    }
+
+        else if (numberOfPondDreamInsights == 5){
+      ponddreamelementtextbox.innerHTML = "shimmering reflection <br><br>" + ponddreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfPondDreamInsights == 6){
+      ponddreamelementtextbox.innerHTML = "you had a restless night of sleep. time to wake up. <br><br>" + ponddreamelementtextbox.innerHTML
+      pondwakeuptextbox.innerHTML = '<a href="#" onclick="addDreamNight(); gotoworktextbox.innerHTML =\' \'; showPage(\'dreamlog-page\'); return false;">Wake Up >>></a> '
+      let pondDreamComplete = true
+      changeDream("pondDream");  
+
+    }
+
+
+    else {
+      
+
+     ponddreamelementtextbox.innerHTML = "- - - - - <br>time to wake up.<br> - - - - - <br><br><br>" + ponddreamelementtextbox.innerHTML
+    } 
+}
+
+
+
+let excavateMountainButton = document.getElementById("excavateMountainButton");
+
+let mountainwakeuptextbox = document.getElementById("mountainwakeuptextbox");
+
+let mountaindreamelementtextbox = document.getElementById("mountaindreamelementtextbox");
+
+//keeping track of the number of times we've excavated dream material in order to change what we display on button press  
+var numberOfMountainDreamInsights = 0;
+
+
+function excavateMountainDream(){
+    
+   
+
+    numberOfMountainDreamInsights += 1;
+    document.getElementById("numberOfMountainDreamInsights").innerHTML = numberOfMountainDreamInsights;
+
+
+    if (numberOfMountainDreamInsights <= 1){
+       
+           mountaindreamelementtextbox.innerHTML = "tall mountain <br><br>" + mountaindreamelementtextbox.innerHTML
+
+    }
+
+    else if (numberOfMountainDreamInsights == 2){
+      mountaindreamelementtextbox.innerHTML = "sweaty palms <br><br>" + mountaindreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfMountainDreamInsights == 3){
+      mountaindreamelementtextbox.innerHTML = "feet stuck <br><br>" + mountaindreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfMountainDreamInsights == 4){
+      mountaindreamelementtextbox.innerHTML = "above and below <br><br>" + mountaindreamelementtextbox.innerHTML 
+    }
+
+        else if (numberOfMountainDreamInsights == 5){
+      mountaindreamelementtextbox.innerHTML = "everything tiny <br><br>" + mountaindreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfMountainDreamInsights == 6){
+      mountaindreamelementtextbox.innerHTML = "you had a restlness night of sleep. time to wake up. <br><br>" + mountaindreamelementtextbox.innerHTML
+      mountainwakeuptextbox.innerHTML = '<a href="#" onclick="addDreamNight(); gotoworktextbox.innerHTML =\' \'; showPage(\'dreamlog-page\'); return false;">Wake Up >>></a> '
+      mountainDreamComplete = true 
+      changeDream("mountainDream");  
+
+    }
+
+
+    else {
+      
+
+     mountaindreamelementtextbox.innerHTML = "- - - - - <br>time to wake up.<br> - - - - - <br><br>" + mountaindreamelementtextbox.innerHTML
+    } 
+}
+
+//
+
+
+
+let excavateBirdButton = document.getElementById("excavateBirdButton");
+
+let birdwakeuptextbox = document.getElementById("birdwakeuptextbox");
+
+let birddreamelementtextbox = document.getElementById("birddreamelementtextbox");
+
+//keeping track of the number of times we've excavated dream material in order to change what we display on button press  
+var numberOfBirdDreamInsights = 0;
+
+
+function excavateBirdDream(){
+    
+
+    numberOfBirdDreamInsights += 1;
+    document.getElementById("numberOfBirdDreamInsights").innerHTML = numberOfBirdDreamInsights;
+
+
+    if (numberOfBirdDreamInsights <= 1){
+       
+           birddreamelementtextbox.innerHTML = "crouching down <br><br>" + birddreamelementtextbox.innerHTML
+
+    }
+
+    else if (numberOfBirdDreamInsights == 2){
+      birddreamelementtextbox.innerHTML = "broken whistle <br><br>" + birddreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfBirdDreamInsights == 3){
+      birddreamelementtextbox.innerHTML = "red-winged black bird <br><br>" + birddreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfBirdDreamInsights == 4){
+      birddreamelementtextbox.innerHTML = "feather falling <br><br>" + birddreamelementtextbox.innerHTML 
+    }
+
+        else if (numberOfBirdDreamInsights == 5){
+      birddreamelementtextbox.innerHTML = "eyes shut <br><br>" + birddreamelementtextbox.innerHTML 
+    }
+
+    else if (numberOfBirdDreamInsights == 6){
+      birddreamelementtextbox.innerHTML = "you had a restless night of sleep. time to wake up. <br><br>" + birddreamelementtextbox.innerHTML
+      birdwakeuptextbox.innerHTML = '<a href="#" onclick="addDreamNight(); gotoworktextbox.innerHTML =\' \'; showPage(\'dreamlog-page\'); return false;">Wake Up >>></a> '
+      birdDreamComplete = true 
+      changeDream("birdDream");  
+    }
+
+
+    else {
+      
+
+     birddreamelementtextbox.innerHTML = "- - - - - <br>time to wake up.<br> - - - - - <br><br>" + birddreamelementtextbox.innerHTML
+    } 
+}
+
+
+
+
+function addDreamNight(){
+  numberOfDreamNights += 1
+  document.getElementById("numberOfDreamNights").innerHTML = numberOfDreamNights;
+
+}
+
+
+function changeDream(newDream) {
+  currentDream = newDream;
+}
+
+//
+
+let dreamscapetextbox = document.getElementById("dreamscapetextbox");
+
+function dreamPrompt(){
+
+  if (numberOfDreamNights == 3)
+    {dreamscapetextbox.innerHTML = "you <br><br>" 
+     }
+
+  else {
+      dreamscapetextbox.innerHTML = "you're having that recurring dream in a familiar place.<br> <br> the summery smell of dead grass mixed with the rotting marsh of cattails at the edge of the pond. a red winged black bird lands nearby and calls its scattered melodic call. tall mountain peaks reflect in the water. still, familiar. you've painted this scene before. it looks a little different this time.<br> <br> <strong>try looking around.</strong> "
+      }
+
+}
+
+
+
+
+
+let gotoworktextbox = document.getElementById("gotoworktextbox");
+
+let logDreamButton = document.getElementById("logDreamButton");
+
+let dreamlogtextbox = document.getElementById("dreamlogtextbox");
+
+var dreamLogNumber = 0;
+
+
+function logDream(){
+
+    
+
+    dreamLogNumber += 1;
+    document.getElementById("dreamLogNumber").innerHTML = dreamLogNumber;
+
+
+    if (dreamLogNumber <= 1){
+
+        if (currentDream === "pondDream"){
+          dreamlogtextbox.innerHTML = "<i>i had a dream i was standing at the edge of a place i used to paint all the time, a pond near the edge of my hometown. i was standing close to the marshy edge of the water, the itchy swaying of the cattails against my shoulders. i bent down and looked into the water and my ears started ringing. i reached my hand into the mud and felt something just as my reflection disappeared. then i woke up.</i>  <br><br>" 
+
+        }
+        else if (currentDream === "mountainDream"){
+          dreamlogtextbox.innerHTML = "<i>i had a dream i could see from the top of the mountain, looking out onto the pond, the cattails, the birds. but also I was looking from the base, the view from the pond. i was standing somehow below and above at the same time, from the pond looking up, from the mountain looking down, and something about being in two places at once meant my feet were stuck and i couldn't move. i tried to move but my palms were sweaty and i felt panicked, afraid to fall off and afraid to climb up.</i>   <br><br>" 
+        }
+
+        else if (currentDream === "birdDream"){
+          dreamlogtextbox.innerHTML = "<i>i had a dream i was crouching behind the cattails near the pond's edge, holding a bird whistle. i used to do this with my mom, crouch there and listen to the chorus of red-winged black birds, chickadees, belted kingfishers, go home to sketch and paint what we saw. but in the dream i was sitting alone, waiting for the birds, and it was quiet, the whistle was broken, no birds, no sound. when i stood up, i could see the red-shouldered feather of the black bird in the corner of my eye, falling, too close to the ground, and i covered my eyes not wanting to see if the bird was alive or dead.</i> <br><br>" 
+        }
+    }
+
+    else if (dreamLogNumber == 2){
+
+          if (numberOfDreamNights <= 1){
+          dreamlogtextbox.innerHTML = "<i>i used to take my sketch pens out on long walks. it's been a really long time since I've sketched anything at all.</i> <br><br>" + dreamlogtextbox.innerHTML
+        }
+         else if (numberOfDreamNights == 2){
+          dreamlogtextbox.innerHTML = "<i>i keep dreaming of the same place over and over.</i> <br><br>" + dreamlogtextbox.innerHTML
+        }
+
+         else  if (numberOfDreamNights == 3){
+          dreamlogtextbox.innerHTML = "<i>i remember something a friend told me: 'i have many ways of knowing myself.'</i><br><br>" + dreamlogtextbox.innerHTML
+        }
+
+
+    }
+
+    else if (dreamLogNumber == 3){
+        
+
+              if (numberOfDreamNights <= 1){
+              dreamlogtextbox.innerHTML = "<i>i've gotta get more sleep.</i> <br><br>" + dreamlogtextbox.innerHTML
+            }
+             else if (numberOfDreamNights == 2){
+              dreamlogtextbox.innerHTML = "<i>my paints have been stacked in a corner for almost 2 years, not being used not being not put away.</i><br><br>" + dreamlogtextbox.innerHTML
+            }
+
+             else  if (numberOfDreamNights == 3){
+              dreamlogtextbox.innerHTML = "<i>we re-learn ourselves over and over again.</i> <br><br>" + dreamlogtextbox.innerHTML
+            }
+
+
+
+    }
+
+    else if (dreamLogNumber == 4){
+        
+      
+
+            if (numberOfDreamNights <= 1){
+              dreamlogtextbox.innerHTML = "<i>maybe i should switch to tea instead of coffee.</i><br><br>" + dreamlogtextbox.innerHTML
+            }
+             else if (numberOfDreamNights == 2){
+              dreamlogtextbox.innerHTML = "<i>does my art even exist if it doesn't exist online?</i> <br><br>" + dreamlogtextbox.innerHTML
+            }
+
+             else  if (numberOfDreamNights == 3){
+              dreamlogtextbox.innerHTML = "<i>i've <strong>really</strong> gotta get more sleep.</i><br><br>" + dreamlogtextbox.innerHTML
+            }
+
+
+    }
+
+    else if (dreamLogNumber == 5){
+      dreamlogtextbox.innerHTML = "<i>damn, now it's time to go to work.</i><br><br>" + dreamlogtextbox.innerHTML
+      gotoworktextbox.innerHTML = '<a href="#" onclick="gotosleeptextbox.innerHTML =\' \'; dreamLogNumber = 0; showPage(\'awake-page\')">Go to work >>></a> '
+    }
+
+    else {
+
+
+      
+
+      dreamlogtextbox.innerHTML = "- - - - - <br>it's time to go to work.<br>- - - - -  <br><br>" + dreamlogtextbox.innerHTML
+    }
+
+} 
+
+
+
+
+
+</script>
+</html>
+
+
+  
+

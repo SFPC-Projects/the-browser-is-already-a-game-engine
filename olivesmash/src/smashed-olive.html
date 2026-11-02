@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            position:fixed;
+            perspective:800px;
+            width:50%;
+            transform-style:preserve-3d;
+
+        }
+
+        img {
+            position:fixed;
+            transform :
+                    translate3d(-419px,-280px,-200px)
+                    scale3d(0.8,0.5,1);
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>smashed</title>
+</head>
+<body>
+
+    <img
+        src="olive-smashed.png"
+        height = 600 width =800
+
+    />
+
+<script>
+    const reset = function() {
+        window.parent.postMessage({type: "reset"});
+    }
+    window.setInterval(reset, 500);
+
+</script>
+
+</body>
+</html>
