@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>River</title>
+<style>
+html, body { margin:0; width:100%; height:100%; background:black; overflow:hidden; }
+.river-gif { width:100%; height:100%; object-fit:cover; display:block; }
+.river-button {
+    position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+    padding:16px 40px; font-size:22px; cursor:pointer; z-index:10;
+}
+
+.location-box {
+    border: 5px outset grey;
+    background-color: lightblue;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 9999;
+}
+
+/*HEADER*/
+	@font-face {
+		font-family: "PicNic-Regular";
+			src: url("assets/PicNic-Regular.otf") format("opentype");
+}
+
+	h1 {
+	font-size: 50px;
+		font-family: "PicNic-Regular";
+}
+
+
+/*BUTTON PLACEMENT*/
+.drink-button {
+    position: absolute;
+    top: 60%;
+    left: 40%;
+}
+
+
+</style>
+</head>
+
+<body>
+<center>
+	<br><br><br><br><br><br>
+		<h1 style="background-color:LightGray;">Open the Second Door Into The Mouth Of Hell</h1>
+
+
+<img class="doorway" src="assets/door.jpg" alt="Door">
+
+<button id="drinkButton" class="drink-button">Drink</button>
+<audio id="riverAudio" src="assets/river-audio.mp3"></audio>
+<br>
+
+<div class="location-box">
+    <h2>Current Location: Entrance Of My Hellish Thoughts</h2>
+    <p><i>*hint: drink the potion to teleport inside...*</i></p>
+</div>
+
+<script>
+const drinkButton = document.getElementById("drinkButton");
+const riverAudio = document.getElementById("riverAudio");
+
+drinkButton.addEventListener("click", function() {
+    drinkButton.disabled = true;
+    riverAudio.play();
+});
+
+riverAudio.addEventListener("ended", function() {
+    window.location.href = "folders.html";
+});
+</script>
+</body>
+</html>

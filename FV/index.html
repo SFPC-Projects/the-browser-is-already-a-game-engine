@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+
+<head> 
+
+    <title>Game Title</title>
+
+    <style>
+
+	/*PLAYBUTTON*/
+	 .btn {
+	  display: inline-block;
+	  padding: 16px 60px;
+	  border: none;
+	  border-radius: 16px;
+	  background: linear-gradient(120deg, #4e696e, #b5b5b5);
+	  color: #fff;
+	  font-size: 26px;
+	  font-weight: 600;
+	  cursor: pointer;
+	  box-shadow: 0 10px 20px -10px rgba(62,103,135,.65);
+	  transition: transform .18s ease, box-shadow .18s ease;
+	}
+	.btn:hover {
+	  transform: translateY(-2px);
+	  box-shadow: 0 14px 26px -10px rgba(62,103,135,.75);
+	}
+
+/*BACKGROUNDIMAGE*/
+body {
+    background-image: url("https://i.pinimg.com/736x/8a/dd/7d/8add7d6ea76ec2112271a9a208585548.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    min-height: 100vh;
+}
+
+/*DIVSTYLING*/
+.location-box {
+  border: 5px outset grey;
+  background-color: lightblue;
+  text-align: center;
+  
+  position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+	 width: 80%;
+}  
+
+/*HEADER*/
+	@font-face {
+		font-family: "PicNic-Regular";
+			src: url("assets/PicNic-Regular.otf") format("opentype");
+}
+
+	h1 {
+	font-size: 100px;
+		font-family: "PicNic-Regular";
+}
+
+
+
+    </style>
+
+</head>
+
+
+<body>
+<center>
+<br><br><br><br>
+
+    <h1>Time Body</h1>
+
+	<br>
+<i>I need your <s> imagination,</s> will you help me?</i><p><br><br>
+    <button class="btn" onclick="startGame()">open the first door to eternity</button>
+<br><br><br><br><br><br>
+<br><br>
+<b>
+[created by -<a href=" www.symoneperformingartist.com "> Symoné</a>- <a href="www.instagramcom/@productionsbysymone">@productionsbysymone</a> on Instagram ]
+</b>
+<br><br><br><br><br><br><br><
+<h2 style="background-color:Pink;">to play: not suitable for mobile. you must turn on popups on browser. turn on volume (headphones suggested) the game may prevent you from playing at certain times of the day</h2>
+
+<br>
+	<div class="location-box">
+  <h2>You are currently inside your body</h2>
+  <p><i>*thinking about what flesh feels like*</i></p>
+</div>
+
+	<br><br>
+
+<script>
+function startGame() {
+    localStorage.removeItem("readFolders");
+    window.location.href = "river.html";
+}
+
+function startGame() {
+
+    // Get the player's LOCAL time from their own device.
+    const now = new Date();
+    const hour = now.getHours();
+
+    /*
+       BLOCKED TIMES:
+
+       2:00 AM - 2:59 AM
+       10:00 AM - 2:59 PM
+
+       JavaScript uses 24-hour time:
+       2  = 2 AM
+       10 = 10 AM
+       14 = 2 PM
+    */
+
+    const timeIsBlocked =
+        hour === 2 ||
+        (hour >= 10 && hour < 15);
+
+
+    // If they're playing during a blocked time,
+    // show the message and DO NOT start the game.
+    if (timeIsBlocked) {
+
+        alert("THIS TIME IT'S NOT POSSIBLE. TRY AGAIN LATER PERHAPS....");
+
+        return;
+    }
+
+
+    // OTHERWISE START THE GAME NORMALLY
+
+    localStorage.removeItem("readFolders");
+
+    window.location.href = "river.html";
+}
+
+</script>
+</body>
+
+</html>

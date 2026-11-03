@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<title >Page Three</title>
+<html>
+<head>
+
+<style>
+body {
+    background-image: url("https://i.pinimg.com/736x/d3/8e/b0/d38eb035e9f7547ad5447e302e19093e.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.location-box {
+    border: 5px outset grey;
+    background-color: lightblue;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 9999;
+}
+
+</style>
+<center>
+<br>
+<br>
+<br>
+<img class="File3" src="assets/File3.png" alt="File3"width="1200">
+
+</center>
+
+<center>
+<a href="#" onclick="returnFromFolder(); return false;">
+    <button>Let Her Invade My Skin</button>
+</a>
+
+</center>
+
+<div class="location-box">
+    <h2>Current Location: The Files</h2>
+    <p><i>*folder 3 is open*</i></p>
+</div>
+
+<script>
+
+/* WHICH FOLDER IS THIS PAGE? */
+const folderNumber = 3;
+
+
+/* RUNS AUTOMATICALLY WHEN THIS PAGE OPENS */
+
+const readFolders = JSON.parse(
+    localStorage.getItem("readFolders") || "[]"
+);
+
+
+/* ONLY COUNT THIS FOLDER ONCE */
+
+if (!readFolders.includes(folderNumber)) {
+    readFolders.push(folderNumber);
+
+    localStorage.setItem(
+        "readFolders",
+        JSON.stringify(readFolders)
+    );
+}
+
+
+/* RETURN BUTTON */
+
+function returnFromFolder() {
+
+    if (readFolders.length >= 4) {
+        window.location.href = "popup-game.html";
+    } else {
+        window.location.href = "folders.html";
+    }
+
+}
+
+</script>
+
+</html>
+
+
+
+

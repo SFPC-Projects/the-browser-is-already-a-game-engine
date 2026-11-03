@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Video</title>
+
+<style>
+
+/* PAGE */
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+}
+
+
+/* VIDEO */
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* MEMORY FORM */
+
+#memoryForm {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#memoryForm p {
+    font-size: 26px;
+}
+
+#memoryForm textarea {
+    width: 500px;
+    max-width: 80%;
+    height: 150px;
+
+    font-size: 18px;
+    padding: 10px;
+
+    resize: none;
+}
+
+#memoryForm button {
+    margin-top: 15px;
+    padding: 10px 25px;
+
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+/* THANK YOU MESSAGE */
+
+#thankYouMessage {
+    display: none;
+
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 26px;
+    text-align: center;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* LOCATION BOX */
+
+.location-box {
+    border: 5px outset grey;
+    background-color: lightblue;
+    text-align: center;
+
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 80%;
+    z-index: 9999;
+}
+
+#endButton {
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- VIDEO -->
+
+<video id="finalVideo" controls autoplay>
+
+    <source src="video.mp4" type="video/mp4">
+
+    Your browser does not support the video element.
+
+</video>
+
+
+
+<!-- MEMORY QUESTION -->
+
+<form
+    id="memoryForm"
+    action="https://formspree.io/f/mqpezowk"
+    method="POST"
+>
+
+    <p>
+        if you could preserve one memory...what would it be?
+    </p>
+
+    <textarea
+        id="memory"
+        name="memory"
+        placeholder="write your memory here..."
+        required
+    ></textarea>
+
+    <button type="submit">
+        SUBMIT
+    </button>
+
+</form>
+
+
+
+<!-- MESSAGE AFTER SUCCESSFUL SUBMISSION -->
+
+<div id="thankYouMessage">
+
+    <p>
+        Thank you for sharing, dear one.
+    </p>
+
+    <p>
+	
+  <p id="endButton">
+    [END]
+</p>
+
+    </p>
+
+</div>
+
+
+
+<!-- LOCATION BOX -->
+
+<div class="location-box">
+
+    <h2>Current Location: The Attic</h2>
+
+</div>
+
+
+
+<script>
+
+/* CLICK [END] TO RETURN TO THE INDEX PAGE */
+
+document.getElementById("endButton").addEventListener("click", function() {
+
+    window.location.href = "index.html";
+
+});
+
+const video = document.getElementById("finalVideo");
+const memoryForm = document.getElementById("memoryForm");
+const thankYouMessage = document.getElementById("thankYouMessage");
+
+
+/* WHEN THE VIDEO FINISHES */
+
+video.addEventListener("ended", function() {
+
+    video.style.display = "none";
+
+    memoryForm.style.display = "flex";
+
+});
+
+
+/* WHEN THE MEMORY IS SUBMITTED */
+
+memoryForm.addEventListener("submit", async function(event) {
+
+    // Keep the player on this page.
+    event.preventDefault();
+
+    // Collect their response.
+    const formData = new FormData(memoryForm);
+
+    // Send it to Formspree.
+    const response = await fetch(
+        "https://formspree.io/f/mqpezowk",
+        {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        }
+    );
+
+
+    // Formspree successfully received it.
+    if (response.ok) {
+
+        memoryForm.style.display = "none";
+
+        thankYouMessage.style.display = "block";
+
+    } else {
+
+        alert("Something went wrong. Please try again.");
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

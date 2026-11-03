@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Popup Windows</title>
+
+
+    <style>
+	
+	.location-box {
+    border: 5px outset grey;
+    background-color: lightblue;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 9999;
+}
+
+
+        /* =========================================
+           PAGE
+           ========================================= */
+
+        body {
+
+            margin: 0;
+            height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #BC8F8F;
+
+        }
+
+
+
+        /* =========================================
+           BUTTON
+           ========================================= */
+
+        #openButton {
+
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+
+        }
+
+
+
+        /* =========================================
+           POPUP BLOCKER WARNING
+           ========================================= */
+
+        #popupWarning {
+
+            display: none;
+
+            color: red;
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+
+        }
+
+
+/*HEADER*/
+	@font-face {
+		font-family: "PicNic-Regular";
+			src: url("assets/PicNic-Regular.otf") format("opentype");
+}
+
+	h1 {
+	font-size: 50px;
+		font-family: "PicNic-Regular";
+}
+
+    </style>
+
+</head>
+
+<div class="location-box">
+    Current Location: The Roof
+</div>
+
+<body>
+<center>
+<h1>My_bodyisawindowMy_bodyisfragileMy_bodyisgross<br>
+My_bodyisasexualobjectMy_bodyisunforviableMy_bodyisnotreal<br>
+My_bodyisfrozenMy_bodyisevilMy_bodyisadoorMy_bodyisbrownlike the earth<br>
+My_bodyhasapriceMy_bodyisadistractionMy_bodyisheavy<br>
+My_bodyismyfoeMy_bodyismymuseMy_bodyisimperfection<br>
+My_bodyisgoldenMy_bodyisinvisibleMy_bodyisawareofmeandmeofherand<br>
+My_bodywhisperssillysecretsMy_bodydrinksthewaterIfeedher<br>
+My_bodyisahellhouseMy_bodyiswaterMy_bodypretends<br>
+My_bodyavodsMy_bodyisahellhouseMy_bodyisshaking<br>
+My_bodyisbloodyMy_bodyisbloodywaterMy_bodyisauniverse<br>
+My_bodysingsalullabyinhellslumber<br>
+My_bodymissesbeingetheralMy_bodyisacosmicjoke<br>
+My_bodytravelsMy_bodyistime<br>
+
+</center>
+</h1>
+
+    <!-- =========================================
+         BUTTON
+         ========================================= -->
+
+    <button id="openButton">
+
+        Bring Us Together Again?
+
+    </button>
+<br>
+
+
+    <!-- =========================================
+         POPUP BLOCKER WARNING
+         ========================================= -->
+
+    <p id="popupWarning">
+
+        Oh! You need to disable your popup blocker to play...
+
+    </p>
+
+
+
+    <script>
+
+    /* =========================================================
+       BASIC PAGE ELEMENTS
+       ========================================================= */
+
+    const button = document.getElementById("openButton");
+    const popupWarning = document.getElementById("popupWarning");
+
+
+    /* =========================================================
+       PUZZLE SETTINGS
+
+       TOUCH_DISTANCE controls how close two window edges need
+       to be before they count as touching.
+       ========================================================= */
+
+    const TOUCH_DISTANCE = 30;
+
+    // Large windows = your original 400 x 300 popups.
+    // Small windows = half-size: 200 x 150.
+    const popupSettings = [
+		{ id: 1, file: "popup1.html", name: "popupOne", width: 400, height: 300, x: 50,   y: 300 },
+		{ id: 2, file: "popup2.html", name: "popupTwo", width: 400, height: 300, x: 1000, y: 300 },
+        { id: 3, file: "popup3.html", name: "popupThree", width: 200, height: 150, x: 20,   y: 20  },
+        { id: 4, file: "popup4.html", name: "popupFour",  width: 200, height: 150, x: 1250, y: 20  },
+        { id: 5, file: "popup5.html", name: "popupFive",  width: 200, height: 150, x: 20,   y: 750 },
+        { id: 6, file: "popup6.html", name: "popupSix",   width: 200, height: 150, x: 1250, y: 750 }
+    ];
+
+
+    /* =========================================================
+       GAME STATE
+       ========================================================= */
+
+    // The actual browser Window objects live here.
+    const popups = new Map();
+
+    // Which windows have joined the connected group?
+    const connected = new Set();
+
+    // Previous positions let us detect which connected window
+    // the player just dragged.
+    const previousPositions = new Map();
+
+    // For popup 3–6, remember where each one first appeared.
+    // A small popup cannot connect until the player has actually moved it.
+    const smallPopupStartPositions = new Map();
+    const armedSmallWindows = new Set();
+
+    let puzzleReady = false;
+    let smallWindowsSpawned = false;
+    let gameComplete = false;
+    let audioContext = null;
+
+
+    /* =========================================================
+       SOUND
+       ========================================================= */
+
+    function prepareSound() {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+    }
+
+    function playConnectSound() {
+        if (!audioContext) return;
+
+        const oscillator = audioContext.createOscillator();
+        const volume = audioContext.createGain();
+
+        // Change 700 if you want a different pitch.
+        oscillator.frequency.value = 700;
+
+        oscillator.connect(volume);
+        volume.connect(audioContext.destination);
+
+        volume.gain.setValueAtTime(0.15, audioContext.currentTime);
+        volume.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + 0.25
+        );
+
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.25);
+    }
+
+
+    /* =========================================================
+       OPEN / REOPEN A POPUP
+       ========================================================= */
+
+    function openPopup(setting) {
+        const popup = window.open(
+            setting.file,
+            setting.name,
+            "width=" + setting.width +
+            ",height=" + setting.height +
+            ",left=" + setting.x +
+            ",top=" + setting.y
+        );
+
+        if (popup) {
+            popups.set(setting.id, popup);
+        }
+
+        return popup;
+    }
+
+
+    /* =========================================================
+       CLICK ME
+
+       Only the two original large windows appear at first.
+
+       The four small windows DO NOT appear yet.
+       They will appear only after popup 1 and popup 2 connect.
+       ========================================================= */
+
+    button.addEventListener("click", function() {
+        prepareSound();
+
+        puzzleReady = false;
+        smallWindowsSpawned = false;
+        gameComplete = false;
+        connected.clear();
+        previousPositions.clear();
+        smallPopupStartPositions.clear();
+        armedSmallWindows.clear();
+        popups.clear();
+
+        // First large popup.
+        openPopup(popupSettings[0]);
+
+        if (!popups.get(1)) {
+            popupWarning.style.display = "block";
+            return;
+        }
+
+        popupWarning.style.display = "none";
+
+        // Second large popup appears shortly afterwards.
+        setTimeout(function() {
+            openPopup(popupSettings[1]);
+        }, 800);
+
+        // At this point we only need popup 1 and popup 2 to exist.
+        setTimeout(function() {
+            if (firstTwoWindowsExist()) {
+                puzzleReady = true;
+                console.log("FIRST TWO WINDOWS READY");
+            } else {
+                popupWarning.style.display = "block";
+                console.log("One of the first two popups was blocked.");
+            }
+        }, 1400);
+    });
+
+
+    /* =========================================================
+       WINDOW HELPERS
+       ========================================================= */
+
+    function firstTwoWindowsExist() {
+        const one = popups.get(1);
+        const two = popups.get(2);
+
+        return (
+            one && !one.closed &&
+            two && !two.closed
+        );
+    }
+
+    function allSixWindowsExist() {
+        return popupSettings.every(function(setting) {
+            const popup = popups.get(setting.id);
+            return popup && !popup.closed;
+        });
+    }
+
+    function getRect(id) {
+        const popup = popups.get(id);
+
+        if (!popup || popup.closed) return null;
+
+        return {
+            x: popup.screenX,
+            y: popup.screenY,
+            width: popup.outerWidth,
+            height: popup.outerHeight,
+            right: popup.screenX + popup.outerWidth,
+            bottom: popup.screenY + popup.outerHeight
+        };
+    }
+
+
+    /* =========================================================
+       ARE TWO WINDOWS TOUCHING?
+
+       This measures the empty horizontal and vertical space
+       between the two window rectangles.
+       ========================================================= */
+
+    function windowsAreTouching(idA, idB) {
+        const a = getRect(idA);
+        const b = getRect(idB);
+
+        if (!a || !b) return false;
+
+        const horizontalGap = Math.max(
+            b.x - a.right,
+            a.x - b.right,
+            0
+        );
+
+        const verticalGap = Math.max(
+            b.y - a.bottom,
+            a.y - b.bottom,
+            0
+        );
+
+        return (
+            horizontalGap <= TOUCH_DISTANCE &&
+            verticalGap <= TOUCH_DISTANCE
+        );
+    }
+
+
+    /* =========================================================
+       SMALL POPUPS MUST BE MOVED BEFORE THEY CAN CONNECT
+
+       This prevents popup 3–6 from connecting immediately just
+       because they happen to appear close to the existing cluster.
+       ========================================================= */
+
+    const SMALL_POPUP_MOVE_DISTANCE = 10;
+
+    function rememberSmallPopupStart(id) {
+        const rect = getRect(id);
+
+        if (!rect) return;
+
+        smallPopupStartPositions.set(id, {
+            x: rect.x,
+            y: rect.y
+        });
+    }
+
+    function smallPopupHasBeenMoved(id) {
+        // Once a popup has been moved, keep it armed permanently.
+        if (armedSmallWindows.has(id)) return true;
+
+        const start = smallPopupStartPositions.get(id);
+        const now = getRect(id);
+
+        if (!start || !now) return false;
+
+        const movedX = Math.abs(now.x - start.x);
+        const movedY = Math.abs(now.y - start.y);
+
+        if (
+            movedX >= SMALL_POPUP_MOVE_DISTANCE ||
+            movedY >= SMALL_POPUP_MOVE_DISTANCE
+        ) {
+            armedSmallWindows.add(id);
+            console.log("POPUP " + id + " IS NOW READY TO CONNECT");
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /* =========================================================
+       MAKE THE FOUR SMALL WINDOWS APPEAR
+
+       This only runs AFTER popup 1 and popup 2 have connected.
+
+       NOTE:
+       Browsers normally restrict popups that are not opened
+       directly by a click. Because you are already allowing
+       popups for your local game, Chrome should permit these.
+       If it blocks them, allow popups for localhost and retry.
+       ========================================================= */
+
+    function spawnSmallWindows() {
+        if (smallWindowsSpawned) return;
+
+        smallWindowsSpawned = true;
+
+        // Stagger them very slightly so the appearance feels
+        // intentional instead of all four arriving at once.
+        setTimeout(function() {
+            openPopup(popupSettings[2]);
+
+            setTimeout(function() {
+                rememberSmallPopupStart(3);
+            }, 100);
+        }, 150);
+
+        setTimeout(function() {
+            openPopup(popupSettings[3]);
+
+            setTimeout(function() {
+                rememberSmallPopupStart(4);
+            }, 100);
+        }, 300);
+
+        setTimeout(function() {
+            openPopup(popupSettings[4]);
+
+            setTimeout(function() {
+                rememberSmallPopupStart(5);
+            }, 100);
+        }, 450);
+
+        setTimeout(function() {
+            openPopup(popupSettings[5]);
+
+            setTimeout(function() {
+                rememberSmallPopupStart(6);
+            }, 100);
+        }, 600);
+
+        // Check whether Chrome allowed all four.
+        setTimeout(function() {
+            if (allSixWindowsExist()) {
+                popupWarning.style.display = "none";
+                console.log("FOUR SMALL WINDOWS APPEARED");
+            } else {
+                popupWarning.style.display = "block";
+                console.log("One or more small popups were blocked.");
+            }
+        }, 900);
+    }
+
+
+    /* =========================================================
+       CONNECTING THE FIRST TWO WINDOWS
+
+       The puzzle begins by waiting for your two original large
+       windows to touch. They become the first connected group.
+       ========================================================= */
+
+    function checkOriginalConnection() {
+        if (connected.size !== 0) return;
+
+        if (windowsAreTouching(1, 2)) {
+            connected.add(1);
+            connected.add(2);
+
+            rememberConnectedPositions();
+            playConnectSound();
+
+            console.log("ORIGINAL WINDOWS CONNECTED");
+
+            // NOW reveal popup 3, 4, 5 and 6.
+            spawnSmallWindows();
+        }
+    }
+
+
+    /* =========================================================
+       CONNECT THE FOUR SMALL WINDOWS
+
+       After popup 1 and 2 have connected, a small popup joins
+       when it touches ANY window already in the connected group.
+
+       This means the six windows gradually become one cluster.
+       ========================================================= */
+
+    function checkForNewConnections() {
+        if (connected.size < 2) return;
+
+        const unconnectedIds = popupSettings
+            .map(function(setting) { return setting.id; })
+            .filter(function(id) { return !connected.has(id); });
+
+        for (const newId of unconnectedIds) {
+
+            // Popup 3–6 are ignored until the player has physically
+            // moved them away from their initial spawned position.
+            if (newId >= 3 && !smallPopupHasBeenMoved(newId)) {
+                continue;
+            }
+
+            for (const connectedId of connected) {
+                if (windowsAreTouching(newId, connectedId)) {
+                    connected.add(newId);
+
+                    rememberConnectedPositions();
+                    playConnectSound();
+
+                    console.log(
+                        "POPUP " + newId + " CONNECTED. TOTAL: " + connected.size
+                    );
+
+                    // Only join once, even if it touches several windows.
+                    break;
+                }
+            }
+        }
+
+        if (connected.size === 6) {
+            finishPuzzle();
+        }
+    }
+
+
+    /* =========================================================
+       REMEMBER THE CONNECTED GROUP'S POSITIONS
+       ========================================================= */
+
+    function rememberConnectedPositions() {
+        for (const id of connected) {
+            const rect = getRect(id);
+
+            if (rect) {
+                previousPositions.set(id, {
+                    x: rect.x,
+                    y: rect.y
+                });
+            }
+        }
+    }
+
+
+    /* =========================================================
+       MOVE THE CONNECTED WINDOWS AS ONE GROUP
+
+       We detect which connected popup moved the most since the
+       last check. That becomes the window the player dragged.
+
+       Every other connected popup is then moved by the SAME
+       x/y amount, which creates the illusion that they are stuck.
+       ========================================================= */
+
+    function moveConnectedGroup() {
+        if (connected.size < 2) return;
+
+        let draggedId = null;
+        let biggestMovement = 0;
+        let deltaX = 0;
+        let deltaY = 0;
+
+        for (const id of connected) {
+            const rect = getRect(id);
+            const previous = previousPositions.get(id);
+
+            if (!rect || !previous) continue;
+
+            const dx = rect.x - previous.x;
+            const dy = rect.y - previous.y;
+            const movement = Math.abs(dx) + Math.abs(dy);
+
+            if (movement > biggestMovement) {
+                biggestMovement = movement;
+                draggedId = id;
+                deltaX = dx;
+                deltaY = dy;
+            }
+        }
+
+        // Nothing was moved by the player during this check.
+        if (draggedId === null || biggestMovement === 0) {
+            return;
+        }
+
+        // Move every OTHER connected popup by the same amount.
+        for (const id of connected) {
+            const popup = popups.get(id);
+            const previous = previousPositions.get(id);
+
+            if (!popup || popup.closed || !previous) continue;
+
+            if (id !== draggedId) {
+                popup.moveTo(
+                    previous.x + deltaX,
+                    previous.y + deltaY
+                );
+            }
+        }
+
+        // Store where we expect the whole group to be now.
+        for (const id of connected) {
+            const previous = previousPositions.get(id);
+
+            if (!previous) continue;
+
+            previousPositions.set(id, {
+                x: previous.x + deltaX,
+                y: previous.y + deltaY
+            });
+        }
+    }
+
+
+    /* =========================================================
+       IF A POPUP IS CLOSED, REOPEN IT AT ITS ORIGINAL POSITION
+       ========================================================= */
+
+    function checkClosedWindows() {
+        if (gameComplete) return;
+
+        for (const setting of popupSettings) {
+            const popup = popups.get(setting.id);
+
+            if (popup && popup.closed) {
+                console.log("Popup " + setting.id + " was closed");
+
+                // If it was part of the connected group, remove it.
+                connected.delete(setting.id);
+                previousPositions.delete(setting.id);
+
+                openPopup(setting);
+
+                if (setting.id >= 3) {
+                    armedSmallWindows.delete(setting.id);
+                    smallPopupStartPositions.delete(setting.id);
+
+                    setTimeout(function() {
+                        rememberSmallPopupStart(setting.id);
+                    }, 100);
+                }
+            }
+        }
+    }
+
+
+    /* =========================================================
+       ALL SIX ARE CONNECTED
+
+       We reuse popup 1 instead of trying to open a seventh popup.
+       That avoids popup blockers at the end of the puzzle.
+       ========================================================= */
+
+    function finishPuzzle() {
+        if (gameComplete) return;
+
+        gameComplete = true;
+        puzzleReady = false;
+
+        console.log("ALL SIX CONNECTED");
+
+        const finalWindow = popups.get(1);
+
+        // Close popup 2 through popup 6.
+        for (const setting of popupSettings) {
+            if (setting.id === 1) continue;
+
+            const popup = popups.get(setting.id);
+
+            if (popup && !popup.closed) {
+                popup.close();
+            }
+        }
+
+        if (!finalWindow || finalWindow.closed) return;
+
+        // Turn popup 1 into the final 960 x 540 video window.
+        finalWindow.resizeTo(960, 540);
+
+        // Roughly centre it on the available screen.
+        const finalX = Math.max(0, Math.round((screen.availWidth - 960) / 2));
+        const finalY = Math.max(0, Math.round((screen.availHeight - 540) / 2));
+
+        finalWindow.moveTo(finalX, finalY);
+
+        // Load the video-player page into that existing window.
+        finalWindow.location.href = "final.html";
+    }
+
+
+    /* =========================================================
+       GAME LOOP
+       ========================================================= */
+
+    setInterval(function() {
+        if (gameComplete) return;
+
+        checkClosedWindows();
+
+        if (!puzzleReady) return;
+
+        // Stage 1: connect the two original large windows.
+        if (connected.size === 0) {
+            checkOriginalConnection();
+            return;
+        }
+
+        // Stage 2: keep the existing group stuck together.
+        moveConnectedGroup();
+
+        // Stage 3: see whether another small window has joined.
+        checkForNewConnections();
+
+    }, 100);
+
+    </script>
+
+</body>
+
+</html>
